@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul li::first-letter {
+            background-color: red;
+        }
+        .main::first-line{
+            background-color: green;
+        }
+        .main::selection{
+            background-color: lightcoral;
+            color: white;
+        }
+        ul li::before{
+            content: "s";
+            height: 100px;
+            width: 500px;
+        }
+        ul li::after{
+            content: "sfd";
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact</li>
+        <li>Help</li>
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact</li>
+        <li>Help</li>
+    </ul>
+
+    <div class="main">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis maxime dicta aliquam architecto eius
+        voluptatum sed beatae sint? Reprehenderit iste expedita aspernatur animi esse quas quos repellendus corporis
+        nulla obcaecati. Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, officiis! Aliquam
+        aspernatur possimus quam fuga unde commodi impedit, porro sit molestias aliquid odio libero et animi qui quidem
+        molestiae provident. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, magnam earum. Maxime
+        at temporibus fuga voluptatibus id repellat dolore possimus beatae iure architecto accusamus aspernatur,
+        quisquam eligendi modi quo? Illo?
+    </div>
+</body>
+
+</html>

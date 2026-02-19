@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            height: 200px;
+            width: 200px;
+            border: 2px solid;
+            /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+            /* animation: ab 2s infinite alternate; */
+            animation: data 5s infinite;
+        }
+
+        @keyframes ab {
+            from {
+                background-color: lightcoral;
+            }
+
+            to {
+                transform: translate(100px);
+                border-radius: 50%;
+                background-color: lightgreen;
+            }
+        }
+
+        @keyframes data {
+            0% {
+                background: lightcoral;
+            }
+
+            25% {
+                background: green;
+                transform: translate(100px,100px);
+            }
+
+            50% {
+                background: lightskyblue;
+                transform: rotate(90%);
+                border-radius: 50%;
+            }
+
+            75% {
+                transform: scale(0.5);
+                background: linear-gradient(red,green);
+            }
+
+            100% {
+                transform: scale(1);
+                background: linear-gradient(blue,gray);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+
+    </div>
+
+</body>
+
+</html>

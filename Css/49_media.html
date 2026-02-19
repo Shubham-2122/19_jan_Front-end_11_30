@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* tv */
+        .main {
+            height: 400px;
+            background-color: rgb(206, 229, 73);
+        }
+          @media only screen and (max-width:1160px) {
+            .main {
+                background-color: rgb(211, 83, 8);
+            }
+        }
+
+        @media only screen and (max-width:992px) {
+            .main {
+                background-color: rgb(148, 9, 88);
+                width: 50%;
+            }
+        }
+
+        /* mini tab 576px - 768px */
+        @media only screen and (max-width:768px) {
+            .main {
+                background-color: aqua;
+                width: 100%;
+            }
+        }
+
+        /* mobile 576px screen */
+        @media only screen and (max-width:576px) {
+            .main {
+                background-color: gold;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+    </div>
+</body>
+
+</html>

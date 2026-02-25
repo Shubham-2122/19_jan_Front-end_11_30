@@ -35,16 +35,50 @@
     .star .row {
         display: block;
     }
-    .star .row .col{
+
+    .star .row .col {
         width: 80%;
         margin: 10px auto;
     }
+
+    .foods .row {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .foods .row .col {
+        width: 100%;
+    }
+
+    .foot .row {
+        display: block;
+    }
+
+    .foot .row .col-4 {
+        width: 100%;
+        /* border: 2px solid; */
+    }
+
+    .foot .row .col-6 {
+        width: 100%;
+        /* border: 2px solid; */
+    }
+
+    .foot-data .row {
+        display: block;
+    }
+
+    .foot-data .row .col {
+        width: 100%;
+        text-align: center;
+    }
+
 }
 
 @media only screen and (max-width:576px) {
-    .star .row .col{
-   
+    .star .row .col {
+
         width: 100%;
-        
+
     }
 }

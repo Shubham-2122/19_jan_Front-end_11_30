@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" onsubmit="return validation()">
+        <div>
+            <input type="text" placeholder="Enter your Name" id="nm">
+            <span id="nmerr"></span>
+        </div>
+        <div>
+            <input type="text" placeholder="Enter your surname" id="snm">
+            <span id="snerr"></span>
+        </div>
+        <div>
+            <input type="text" placeholder="Enter your phone" id="ph">
+            <span id="pherr"></span>
+        </div>
+        <div>
+            <input type="email" placeholder="Enter your Email" id="em">
+            <span id="emerr"></span>
+        </div>
+        <div>
+            <input type="password" placeholder="Enter your password" id="psw">
+            <span id="pswerr"></span>
+        </div>
+        <div>
+            <input type="password" id="cpsw" placeholder="Enter your confrom password">
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+
+    <script>
+
+        let nm = document.getElementById("nm")
+        let nmerr = document.getElementById("nmerr")
+
+        let sruname = document.getElementById("snm")
+        let smerr = document.getElementById("snerr")
+
+        let phone = document.getElementById("ph")
+        let pherr = document.getElementById("pherr")
+
+        let email = document.getElementById("em")
+        let emerr = document.getElementById("emerr")
+
+        let password = document.getElementById("psw")
+        let pswerr = document.getElementById("pswerr")
+        let cpassword = document.getElementById("cpsw")
+
+        function validation(){
+            if(nm.value == "" || nm.value == null){
+                console.log("Name Required")
+                nmerr.innerHTML = "**Name Required.."
+                nmerr.style.color = "red"
+                return false
+            }
+            else{
+                nmerr.innerHTML = ""
+                
+            }
+
+            if(sruname.value == "" || sruname.value == null){
+                smerr.innerHTML = "Surname Required.."
+                smerr.style.color = "red"
+                return false
+            }
+            else{
+                 smerr.innerHTML = ""
+               
+            }
+ 
+            if(phone.value == "" || phone.value == null){
+                pherr.innerHTML = "**Phone Required.."
+                pherr.style.color = "red"
+                return false
+            }
+            else{
+                pherr.innerHTML = ""
+                
+            }
+
+             if(email.value == "" || email.value == null){
+                emerr.innerHTML = "**Email Required.."
+                emerr.style.color = "red"
+                return false
+            }
+            else{
+                emerr.innerHTML = ""
+                
+            }
+
+             if(password.value == "" || password.value == null){
+                pswerr.innerHTML = "**password Required.."
+                pswerr.style.color = "red"
+                return false
+            }
+            else{
+                pswerr.innerHTML = ""
+                
+            }
+
+            if(password.value != cpassword.value){
+                alert("Password does not match..")
+                return false
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let arr = [1,2,3,4,5]
+
+        console.log(arr)
+        console.log(arr.length)
+
+        // push : after we can add
+
+        arr.push(6)
+        console.log(arr)
+
+        // pop : after delete data
+        arr.pop()
+        console.log(arr)
+
+        // before add 
+        arr.unshift(0)
+        console.log(arr)
+
+        // before remove
+        arr.shift()
+        console.log(arr)
+
+        // conce 
+
+        let arr1 = [6,7,8,9,10]
+
+        const data =  arr.concat(arr1)
+
+        console.log(data)
+
+        console.log(arr)
+
+        const number = ["one","two","three","four","five","six","seven"]
+        console.log(number)
+
+        const num = number.filter((data)=> data.length > 3)
+        console.log(num)
+         console.log(num.join(""))
+         console.log(num.join("-"))
+
+         console.log(arr.reverse())
+
+         const animals = ["ant", "bison", "camel", "duck", "elephant"];
+
+         console.log(animals)
+
+         console.log(animals.slice(2))
+         console.log(animals.slice(0,3))
+         console.log(animals.slice(2,4))
+
+         
+
+    </script>
+</body>
+</html>

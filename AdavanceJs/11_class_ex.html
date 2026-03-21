@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Clc{
+            // store function and with parameter
+            x = function sum(a,b){
+                console.log("Sum : ",a+b)
+            }
+
+            // store function and without parameter
+            y = function sub(){
+                let a = 30,b=10
+                console.log("sub :",a-b)
+            }
+
+            // wihout store and with parmeter
+            mul(a,b){
+                console.log("mul :",a*b)
+            }
+
+             // wihout store and without parmeter
+            divi(){
+                let a=30,b=10 
+                console.log("divi : ",a/b)
+            }
+        }
+
+        const ob = new Clc
+        console.log(ob)
+        ob.mul(20,10)
+        ob.divi()
+        ob.x(402,30)
+        ob.y()
+    </script>
+</body>
+</html>

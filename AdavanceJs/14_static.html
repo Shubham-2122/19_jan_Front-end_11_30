@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        class Data {
+            constructor() {
+                console.log("hello constructor")
+            }
+            x = function demo() {
+                console.log("X function")
+            }
+            y = function demo2() {
+                console.log("y function")
+            }
+            static show() {
+                console.log("Static data")
+            }
+
+        }
+
+        const user = new Data;
+        console.log(user)
+        user.x()
+
+        Data.show()
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- inhriatnce : one class to another class 
+        1) single 
+        2) multi level
+        3) multiple not use javascrit 
+        4) hirachical 
+        5) hybrid 
+        
+        
+        syntax : 
+        class A{
+        
+        }
+        class B extendes A{
+        
+        }
+    -->
+
+
+    <script>
+
+        class A {
+            x = function demo(){
+                console.log("A class ")
+            }
+        }
+
+        class B extends A{
+            y = function demo2(){
+                console.log("B class")
+            }
+        }
+
+        const user = new B 
+        user.x()
+        user.y()
+
+    </script>
+</body>
+</html>

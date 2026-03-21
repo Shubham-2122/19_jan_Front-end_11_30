@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- class : collection of member function(function) and data memeber(varibale) it's called class 
+          : it's blue print of object   
+
+    syntax : 
+    class classname{
+        memebr function{
+            data memebr 
+        }
+        memebr function{
+            data memebr 
+        }
+        memebr function{
+            data memebr 
+        }
+    }
+
+    const user = new classname -->
+
+
+    <script>
+
+        class Bank{
+            // memeber funtion
+            x = function datails(pin,blance){
+
+                let bankname = "HDFC"
+                let bankIFSC = "HDFC0001H"
+                let Bankpin = pin 
+                let BankBlance = blance
+
+
+                console.log("Bank Name : ",bankname)
+                console.log("Bank code : ",bankIFSC)
+                // console.log("Bank Pin : ",Bankpin)
+                console.log("Bank blance : ",BankBlance)
+
+            }
+
+            y= function depoist(){
+                console.log("deposit function")
+            }
+        }
+
+
+        // object created 
+        const manthan = new Bank
+        console.log(manthan)
+        manthan.y()
+        manthan.y()
+        manthan.x(123,5000)
+
+        const karan = new Bank 
+        karan.x(234,10000)
+        karan.y()
+
+    </script>
+
+</body>
+</html>

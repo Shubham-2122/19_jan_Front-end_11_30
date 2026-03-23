@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- overloading : (compile error) : class in function name same but different parameter  -->
+    <!-- overriding : (run-time error) : class have defferenet function same ,inhritance -->
+
+
+    <script>
+
+        // class Load{
+        //     display(a){
+        //         console.log("a : ",a)
+        //     }
+        //     display(a,b){
+        //         console.log("sum :",a+b)
+        //     }
+        //     display(a,b){
+        //         console.log("sub :",a-b)
+        //     }
+        // }
+
+        // const user = new Load 
+        // console.log(user)
+        // user.display(20,40)
+
+
+        class A {
+            display(){
+                console.log("A class")
+            }
+        }
+        class B extends A{
+            display(){
+                console.log("B class")
+            }
+        }
+        class C extends B{
+            display(){
+                console.log("C class")
+            }
+        }
+
+        // const user = new C 
+        // console.log(user)
+        // user.display()
+        // user.display()
+
+        const data = [new A,new B,new C] 
+        console.log(data)
+        data.forEach((user)=>{
+            user.display()
+        })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- enc : hide ,private
+    absc : how to use  -->
+
+    <script>
+
+        function Person(name,age){
+            // private enc
+            let _name = name;
+            let _age = age; 
+
+            // abscr 
+            this.getName=()=>{
+                return _name
+            }
+            this.getAge=()=>{
+                return _age 
+            }
+            this.SetAge=(newage)=>{
+                return _age = newage
+            }
+        }
+
+
+        const het = new Person("het",23)
+        console.log(het._name)
+        console.log(het._age)
+
+        console.log(het.getName())
+        console.log(het.getAge())
+        het.SetAge(25)
+        console.log(het.getAge())
+
+
+    </script>
+
+</body>
+</html>

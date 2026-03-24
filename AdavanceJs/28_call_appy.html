@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- call  -->
+
+    <script>
+
+        let data = {
+            fullname: function (city, state) {
+                console.log("fname :", this.fname, " lname :", this.lname, " city : ", city, " state : ", state)
+            }
+        }
+
+        let perosn = {
+            fname: "het",
+            lname: "patel"
+        }
+
+        data.fullname.call(perosn, "surat", "gujarat")
+
+        // call sparate argument
+
+        let perosn1 = {
+            fname: "shubham",
+            lname: "jadav"
+        }
+
+        data.fullname.apply(perosn1,["bharuch","gujarat"])
+        // apply as array argument
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- call  -->
+
+    <script>
+
+        let data = {
+            fullname: function () {
+                console.log("fname :", this.fname, " lname :", this.lname)
+            }
+        }
+
+        let perosn = {
+            fname: "het",
+            lname: "patel"
+        }
+
+        // as object created and function show
+        let newdata = data.fullname.bind(perosn)
+        newdata()
+
+    </script>
+
+</body>
+
+</html>

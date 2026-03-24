@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- promise state ,res,reject
+        1) pending : Api data load hold pending 
+        2) fullfield : data show completed 
+        3) rejected : data error, 
+    
+
+        let data = new Promise((res,err)=>{
+            ...loading
+        })
+        
+    -->
+
+    <script>
+
+        function output(res) {
+            console.log(res)
+        }
+
+        let data = new Promise(function (res, rej) {
+            let x = 10
+            if (x == 11) {
+                res("success msg..")
+            }
+            else {
+                rej("reject value")
+            }
+        })
+            .then(function (res) {
+                output(res)
+            })
+            .catch((err)=>{
+                output(err)
+            })
+            .finally(()=>{
+                console.log("Promise finished (success or failure).");
+            })
+
+
+    </script>
+
+</body>
+
+</html>

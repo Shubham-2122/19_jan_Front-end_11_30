@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- json : javascript syntax object noation string 
+        1) lightwight 
+        2) easy to use read 
+        3) back-rest api  
+    -->
+    <!-- let ob = `[
+        {
+            "id":1,
+            "name":"shubham",
+            "course":"front-end"
+        }
+    ]`
+
+    let obj = [
+        {
+            id : 1,
+            name : "shubham",
+            coruse : "front-end"
+        }
+    ] -->
+
+    <script>
+
+        let ob = `[
+            {
+                "id":"1",
+                "name":"shubham",
+                "course":"front-end"
+            },
+            {
+                "id":"2",
+                "name":"hiren",
+                "course":"back-end"
+            },
+            {
+                "id":"3",
+                "name":"sujal",
+                "course":"full-stack"
+            }
+        ]`
+
+        console.log(ob)
+
+        let objecdata = JSON.parse(ob)
+
+        console.log(objecdata)
+
+        objecdata.forEach((data,index) => {
+            console.log("id :",data.id,"name :",data.name)
+            document.write(`<h3>id : ${data.id} name : ${data.name} coruse : ${data.course}</h3>`)
+        });
+
+        let users = [
+            {
+                id : 1,
+                name : "karan",
+                age : 21,
+            },
+            {
+                id : 2,
+                name : "manthan",
+                age : 25,
+            },
+            {
+                id : 3,
+                name : "jigar",
+                age : 41,
+            }
+        ]
+
+        console.log(users)
+
+        let jsondata = JSON.stringify(users)
+        console.log(jsondata)
+        // document.writeln(jsondata)
+
+    </script>
+
+</body>
+</html>

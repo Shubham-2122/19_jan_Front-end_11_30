@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- fetch : inbuilt javascript function
+    Method : 
+    get : read 
+    post : new data 
+    put/patch : update 
+    delete : remove 
+    
+    
+    fetch('',{
+        method : "GET"
+    })
+    .then(()=>{
+        convert
+    })
+    .then(()=>{
+        print 
+    })
+    .catch(errr)
+
+    -->
+
+<!-- text file javascript string,array,object -->
+ <h1 id="h1"></h1>
+    <script>
+
+        fetch("data.txt",{
+            method:"GET"
+        })
+        .then((res)=>{
+            // console.log(res)
+            // text file promiset string
+            return res.text()
+        })
+        .then((data)=>{
+            console.log(data)
+            document.getElementById("h1").innerHTML = data
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+
+    </script>
+     
+    
+</body>
+</html>

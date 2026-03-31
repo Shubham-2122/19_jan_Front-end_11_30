@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios@1.13.2/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <!-- axios : is back-end third party lib 
+        javascript lib use 
+        get,post,put,delete, 
+
+        link
+    -->
+
+
+    <script>
+
+        // const fetchdata = async () => {
+        //     try {
+        //         const res = await axios.get("https://69cb98cb0b417a19e07aeb42.mockapi.io/users")
+        //         console.log(res)
+        //         console.log(res.data)
+        //         res.data.map((user) => {
+        //             console.log(user)
+        //         })
+        //     } catch (error) {
+        //         console.log("APi data not Found",error)
+        //     }
+        // }
+        // fetchdata()
+
+        let person = {
+            name: "paras",
+            surname: "panchal",
+            age: 28,
+            email: "paraspanchal52gmail.com"
+        }
+
+        // post new data
+        const newdata = async () => {
+            try {
+                const res = await axios.post("https://69cb98cb0b417a19e07aeb42.mockapi.io/users", person)
+                console.log(res.data)
+            } catch (error) {
+                console.log("APi data not Found", error)
+            }
+        }
+        // newdata()
+
+        // delele data 
+
+        const deleteuser=async()=>{
+            const res = await axios.delete(`https://69cb98cb0b417a19e07aeb42.mockapi.io/users/7`)
+            console.log(res.data)
+        }
+        // deleteuser()
+
+    </script>
+
+
+</body>
+
+</html>

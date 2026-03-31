@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        fetch("https://69cb98cb0b417a19e07aeb42.mockapi.io/users",{
+            method:"GET"
+        })
+        .then((data)=>{
+            return data.json()
+        })
+        .then((res)=>{
+            console.log(res)
+        })
+    </script>
+</body>
+</html>

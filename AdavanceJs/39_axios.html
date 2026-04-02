@@ -60,6 +60,25 @@
         }
         // deleteuser()
 
+        let person1= {
+            id : 6,
+            name:"raj",
+            surname:"patel",
+            email:"raj@gmail.com"
+        }
+
+        const updateuser = async()=>{
+            try {
+                const res = await axios.put(`https://69cb98cb0b417a19e07aeb42.mockapi.io/users/${person1.id}`,person1);
+                console.log(res.data)
+            } catch (error) {
+                console.log("Api data not Found",error)
+            }
+
+        }
+
+        updateuser()
+
     </script>
 
 

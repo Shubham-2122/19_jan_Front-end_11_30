@@ -45,6 +45,8 @@ Floder Struc
 	1) node module : npm install
 	2) public      : index.html,static floder images
 	3) Src         : index.js ,App.js
+	4) package-lock.json : lock
+	   package.json : 
 	
 
 flow : app.js -> index.js -> index.html 

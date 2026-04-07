@@ -12,7 +12,7 @@ function FuncProps({img,title,desc}) {
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
                     <p className="card-text">{desc}</p>
-                    <a href="#" className="btn btn-primary">Go somewhere</a>
+                    <button  className="btn btn-primary">Go somewhere</button>
                 </div>
             </div>
 

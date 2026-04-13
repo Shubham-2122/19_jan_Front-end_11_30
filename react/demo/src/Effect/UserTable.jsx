@@ -38,10 +38,10 @@ function UserTable() {
           </thead>
           <tbody>
             {user &&
-              user.map((data) => {
+              user.map((data,index) => {
                 console.log(data);
                 return (
-                  <tr>
+                  <tr key={index}>
                     <th scope="row">{data.id}</th>
                     <td>{data.name}</td>
                     <td>{data.email}</td>

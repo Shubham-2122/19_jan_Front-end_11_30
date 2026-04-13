@@ -12,7 +12,7 @@ function UserTableAx() {
     const fetchdata=async()=>{
         try {
             const res = await axios.get("https://jsonplaceholder.typicode.com/users")
-        console.log(res.data)
+        // console.log(res.data)
         setuser(res.data)
         } catch (error) {
             console.log("Api data not Found",error)
@@ -34,10 +34,10 @@ function UserTableAx() {
           </thead>
           <tbody>
             {user &&
-              user.map((data) => {
-                console.log(data);
+              user.map((data,index) => {
+                // console.log(data);
                 return (
-                  <tr>
+                  <tr key={data.id}>
                     <th scope="row">{data.id}</th>
                     <td>{data.name}</td>
                     <td>{data.email}</td>

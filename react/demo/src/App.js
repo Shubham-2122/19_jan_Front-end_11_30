@@ -1,11 +1,12 @@
 import React from "react";
+import MainContext from "./Context/MainContext";
 // import Css from "./CSS/Css";
 // import MainProps from "./Props/MainProps";
 // import MainState from "./state/MainState";
 // import DataEffect from "./Effect/DataEffect";
 // import UserTable from "./Effect/UserTable";
 // import UserTableAx from "./Effect/UserTableAx";
-import CardProduct from "./Effect/CardProduct";
+// import CardProduct from "./Effect/CardProduct";
 // import ClassCompo from "./Component/ClassCompo";
 // import FuncCompo from "./Component/FuncCompo";
 // import Hello from "./JSX/Hello";
@@ -36,7 +37,11 @@ function App() {
             {/* <UserTable /> */}
             {/* <UserTableAx /> */}
 
-            <CardProduct />
+            {/* <CardProduct /> */}
+            
+
+            {/* context */}
+            <MainContext />
         </div>
     )
 }

@@ -1,5 +1,8 @@
 import React from "react";
-import MainContext from "./Context/MainContext";
+import BootComponent from "./Design/BootComponent";
+import ReactCard from "./Design/ReactCard";
+import Footer from "./Design/Footer";
+// import MainContext from "./Context/MainContext";
 // import Css from "./CSS/Css";
 // import MainProps from "./Props/MainProps";
 // import MainState from "./state/MainState";
@@ -41,7 +44,12 @@ function App() {
             
 
             {/* context */}
-            <MainContext />
+            {/* <MainContext /> */}
+
+            {/* Design install */}
+            {/* <BootComponent /> */}
+            <ReactCard />
+            <Footer />
         </div>
     )
 }

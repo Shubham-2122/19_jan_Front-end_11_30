@@ -4,6 +4,9 @@ import Fonts from './TailwindProp/Fonts'
 import BorderData from './TailwindProp/BorderData'
 import Size from './TailwindProp/Size'
 import Flex from './TailwindProp/Flex'
+import Grid from './TailwindProp/Grid'
+import Data from './TailwindProp/Data'
+import Carddata from './TailwindProp/Carddata'
 
 function App() {
   return (
@@ -13,7 +16,11 @@ function App() {
       {/* <Fonts /> */}
       {/* <BorderData /> */}
       {/* <Size /> */}
-      <Flex />
+      {/* <Flex /> */}
+      {/* <Grid /> */}
+      {/* <Data /> */}
+      <Carddata />
+      <Carddata />
     </div>
   )
 }

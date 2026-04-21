@@ -1,7 +1,11 @@
 import React from "react";
-import BootComponent from "./Design/BootComponent";
-import ReactCard from "./Design/ReactCard";
-import Footer from "./Design/Footer";
+import Home from "./Layout/Pages/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./Layout/Pages/About";
+import Contact from "./Layout/Pages/Contact";
+// import BootComponent from "./Design/BootComponent";
+// import ReactCard from "./Design/ReactCard";
+// import Footer from "./Design/Footer";
 // import MainContext from "./Context/MainContext";
 // import Css from "./CSS/Css";
 // import MainProps from "./Props/MainProps";
@@ -16,41 +20,53 @@ import Footer from "./Design/Footer";
 
 function App() {
     return (
-        <div>
-            <h1>Hello this H1 tag</h1>
-            {/* componet */}
-            {/* <ClassCompo /> */}
-            {/* <FuncCompo /> */}
+        <BrowserRouter>
 
-            {/* jsx */}
-            {/* <Hello /> */}
+            <div>
 
-            {/* css */}
-            {/* <Css /> */}
+                {/* componet */}
+                {/* <ClassCompo /> */}
+                {/* <FuncCompo /> */}
 
-            {/* Props  */}
-            {/* <MainProps /> */}
+                {/* jsx */}
+                {/* <Hello /> */}
 
-            {/* state */}
-            {/* <MainState /> */}
+                {/* css */}
+                {/* <Css /> */}
+
+                {/* Props  */}
+                {/* <MainProps /> */}
+
+                {/* state */}
+                {/* <MainState /> */}
 
 
-            {/* Effect */}
-            {/* <DataEffect /> */}
-            {/* <UserTable /> */}
-            {/* <UserTableAx /> */}
+                {/* Effect */}
+                {/* <DataEffect /> */}
+                {/* <UserTable /> */}
+                {/* <UserTableAx /> */}
 
-            {/* <CardProduct /> */}
-            
+                {/* <CardProduct /> */}
 
-            {/* context */}
-            {/* <MainContext /> */}
 
-            {/* Design install */}
-            {/* <BootComponent /> */}
-            <ReactCard />
-            <Footer />
-        </div>
+                {/* context */}
+                {/* <MainContext /> */}
+
+                {/* Design install */}
+                {/* <BootComponent /> */}
+                {/* <ReactCard /> */}
+                {/* <Footer /> */}
+
+
+                {/* layout  rounter*/}
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                </Routes>
+
+            </div>
+        </BrowserRouter>
     )
 }
 

@@ -7,6 +7,9 @@ import About1 from "./Layout/Pages/About1";
 import About2 from "./Layout/Pages/About2";
 import NotFound from "./Layout/Pages/NotFound";
 import ClassLife from "./Lifecycle/ClassLife";
+import RefData from "./Hooks/RefData";
+import Reducerdata from "./Hooks/Reducerdata";
+import DataCounter from "./Hooks/DataCounter";
 // import BootComponent from "./Design/BootComponent";
 // import ReactCard from "./Design/ReactCard";
 // import Footer from "./Design/Footer";
@@ -72,6 +75,9 @@ function App() {
 
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/life" element={<ClassLife />} />
+                     <Route path="/ref" element={<RefData />} />
+                     <Route path="/reducer" element={<Reducerdata />} />
+                      <Route path="/custom" element={<DataCounter />} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>

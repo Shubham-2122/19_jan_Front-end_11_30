@@ -7,7 +7,7 @@ function About() {
     return (
         <div>
             <Header />
-            <NavTitle />
+            <NavTitle title="About Us" name="About Us" img="https://cdn.pixabay.com/photo/2023/11/01/11/12/hallstatt-8357170_1280.jpg" />
             <div>
                 <section id="disc" className="p_3 px-3 bg-light">
                     <div className="container-fluid">

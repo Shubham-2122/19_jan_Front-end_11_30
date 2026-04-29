@@ -10,6 +10,8 @@ import Package from './website/pages/Package'
 import PackageDtai from './website/pages/PackageDtai'
 import Services from './website/pages/Services'
 import NotFound from './website/pages/NotFound'
+import Dashboard from './Admin/Apages/Dashboard'
+import PackManage from './Admin/Apages/PackManage'
 
 function App() {
   return (
@@ -29,11 +31,15 @@ function App() {
 
           <Route path='*' element={<NotFound />} />
 
+          {/* Admin */}
+          <Route path='/dash' element={<Dashboard />} />
+          <Route path='/packmange' element={<PackManage />} />
 
+          
         </Routes>
       </div>
     </BrowserRouter>
-  )
+  ) 
 }
 
 export default App

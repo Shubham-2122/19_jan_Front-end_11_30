@@ -19,6 +19,9 @@ function AHeader() {
                                     <li className="nav-item">
                                         <NavLink className="nav-link " aria-current="page" to="/packmange" >package</NavLink>
                                     </li>
+                                     <li className="nav-item">
+                                        <NavLink className="nav-link"  to="/sermange" >Services </NavLink>
+                                    </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link"  to="/about">About </NavLink>
                                     </li>
@@ -40,9 +43,7 @@ function AHeader() {
                                             <li><NavLink className="dropdown-item border-0" to="/packaged" > Package Detail</NavLink></li>
                                         </ul>
                                     </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link"  to="/service" >Services </NavLink>
-                                    </li>
+                                   
                                     <li className="nav-item">
                                         <NavLink className="nav-link"  to="/price" >Pricing </NavLink>
                                     </li>

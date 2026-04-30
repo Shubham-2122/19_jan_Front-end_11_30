@@ -12,6 +12,7 @@ import Services from './website/pages/Services'
 import NotFound from './website/pages/NotFound'
 import Dashboard from './Admin/Apages/Dashboard'
 import PackManage from './Admin/Apages/PackManage'
+import ServiceManage from './Admin/Apages/ServiceManage'
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
           {/* Admin */}
           <Route path='/dash' element={<Dashboard />} />
           <Route path='/packmange' element={<PackManage />} />
-
+     <Route path='/sermange' element={<ServiceManage />} />
           
         </Routes>
       </div>

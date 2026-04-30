@@ -29,7 +29,8 @@
             "loaction":"Thailand",
             "desc":"Visit the temples and the Chiang Mai Night Bazaar, a huge huge market located on Chiang Klan Road.",
             "days":3,
-            "img":"https://media.istockphoto.com/id/2164152889/photo/tourists-and-locals-enjoying-yaowarats-street-food.jpg?s=612x612&w=0&k=20&c=FGe6bKaxRhR0DJLbGHuHmAGYx2I4VBm9J-MJ-aowi9o="
+            "img":"https://media.istockphoto.com/id/2164152889/photo/tourists-and-locals-enjoying-yaowarats-street-food.jpg?s=612x612&w=0&k=20&c=FGe6bKaxRhR0DJLbGHuHmAGYx2I4VBm9J-MJ-aowi9o=",
+            "price":"230"
         },
         {
             "id":2,
@@ -37,7 +38,8 @@
             "loaction":"japan",
             "desc":"Visit the temples and the Chiang Mai Night Bazaar, a huge huge market located on Chiang Klan Road.",
             "days":6,
-            "img":"https://media.istockphoto.com/id/1149107495/photo/yasaka-pagoda-in-gion-at-sunset-kyoto-japan.jpg?s=612x612&w=0&k=20&c=HqmJ6Yf1Agac5kjebFDuEx3tP6JWzdfK35dFlqHZ_PE="
+            "img":"https://media.istockphoto.com/id/1149107495/photo/yasaka-pagoda-in-gion-at-sunset-kyoto-japan.jpg?s=612x612&w=0&k=20&c=HqmJ6Yf1Agac5kjebFDuEx3tP6JWzdfK35dFlqHZ_PE=",
+            "price":"350"
         },
         {
             "id":3,
@@ -45,8 +47,35 @@
             "loaction":"Bangkok",
             "desc":"Visit the temples and the Chiang Mai Night Bazaar, a huge huge market located on Chiang Klan Road.",
             "days":4,
-            "img":"https://hblimg.mmtcdn.com/content/hubble/img/new_dest_imagemar/mmt/activities/m_Bangkok_1_l_658_1200.jpg"
+            "img":"https://hblimg.mmtcdn.com/content/hubble/img/new_dest_imagemar/mmt/activities/m_Bangkok_1_l_658_1200.jpg",
+            "price":"270"
         }
 
+    ],
+    "service":[
+        {
+            "id":1,
+            "name":"Ocean Cruises",
+            "desc":"Our travel agency specializes in providing our customers with the best deals on airline tickets.",
+            "icons":"fa fa-bus"
+        },
+        {
+            "id":2,
+            "name":"Means of Transport",
+            "desc":"Our travel agency specializes in providing our customers with the best deals on airline tickets.",
+            "icons":"fa fa-contao"
+        },
+         {
+            "id":3,
+            "name":"Airline Tickets",
+            "desc":"Our travel agency specializes in providing our customers with the best deals on airline tickets.",
+            "icons":"fa fa-car"
+        },
+         {
+            "id":4,
+            "name":"Travel Insurance",
+            "desc":"Our travel agency specializes in providing our customers with the best deals on airline tickets.",
+            "icons":"fa fa-life-ring"
+        }
     ]
 }

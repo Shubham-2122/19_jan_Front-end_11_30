@@ -2,8 +2,10 @@ import React from 'react'
 import Header from '../Comana/Header'
 import NavTitle from '../Comana/NavTitle'
 import Footer from '../Comana/Footer'
+import useApi from '../../Custom/useApi'
 
 function Services() {
+    const { api } = useApi("http://localhost:3000/service")
     return (
         <div>
             <Header />
@@ -82,52 +84,25 @@ function Services() {
                                 <h1 className="mb-0 mt-3">Perfect Vacation come True</h1>
                             </div>
                         </div>
+
+
                         <div className="about_pg2 row mt-4 text-center">
-                            <div className="col-md-4">
-                                <div className="about_pg2i">
-                                    <span className="font_60 col_green"><i className="fa fa-bus" /></span>
-                                    <h5 className="mt-3">Airline Tickets</h5>
-                                    <p className="mb-0 mt-3">Our travel agency specializes in providing our customers with the best deals on airline tickets.</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="about_pg2i">
-                                    <span className="font_60 col_green"><i className="fa fa-contao" /></span>
-                                    <h5 className="mt-3">Ocean Cruises</h5>
-                                    <p className="mb-0 mt-3">Our travel agency specializes in providing our customers with the best deals on airline tickets.</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="about_pg2i">
-                                    <span className="font_60 col_green"><i className="fa fa-car" /></span>
-                                    <h5 className="mt-3">Means of Transport</h5>
-                                    <p className="mb-0 mt-3">Our travel agency specializes in providing our customers with the best deals on airline tickets.</p>
-                                </div>
-                            </div>
+                            {
+                                api && api.map((data, index) => {
+                                    return (
+                                        <div className="col-md-4 my-3">
+                                            <div className="about_pg2i">
+                                                <span className="font_60 col_green"><i className={data.icons} /></span>
+                                                <h5 className="mt-3">{data.name}</h5>
+                                                <p className="mb-0 mt-3">{data.desc}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+
                         </div>
-                        <div className="about_pg2 row mt-4 text-center">
-                            <div className="col-md-4">
-                                <div className="about_pg2i">
-                                    <span className="font_60 col_green"><i className="fa fa-tripadvisor" /></span>
-                                    <h5 className="mt-3">Travel itineraries</h5>
-                                    <p className="mb-0 mt-3">Our travel agency specializes in providing our customers with the best deals on airline tickets.</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="about_pg2i">
-                                    <span className="font_60 col_green"><i className="fa fa-life-ring" /></span>
-                                    <h5 className="mt-3">Travel Insurance</h5>
-                                    <p className="mb-0 mt-3">Our travel agency specializes in providing our customers with the best deals on airline tickets.</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="about_pg2i">
-                                    <span className="font_60 col_green"><i className="fa fa-user-secret" /></span>
-                                    <h5 className="mt-3">Local Guide</h5>
-                                    <p className="mb-0 mt-3">Our travel agency specializes in providing our customers with the best deals on airline tickets.</p>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </section>
                 <section id="serv_pgo" className="p_3 px-3">

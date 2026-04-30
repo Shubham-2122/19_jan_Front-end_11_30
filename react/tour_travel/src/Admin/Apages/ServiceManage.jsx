@@ -1,37 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import AHeader from '../Acoman/AHeader'
-import axios from 'axios'
 import useApi from '../../Custom/useApi'
 
-function PackManage() {
-    // const [pkg, setpkg] = useState([])
+function ServiceManage() {
 
-    // useEffect(() => {
-    //     fetchdata()
-    // }, [])
+    const {api} = useApi("http://localhost:3000/service")
 
-    // const fetchdata = async () => {
-    //     const res = await axios.get("http://localhost:3000/package")
-    //     console.log(res.data)
-    //     setpkg(res.data)
-    // }
-
-    // data show custom hooks
-    const {api} = useApi("http://localhost:3000/package")
-
-
-    return (
-        <div>
-            <AHeader />
-            <h1 className='text-center'>Package Manage Detils</h1>
+  return (
+    <div>
+        <AHeader />
+         <h1 className='text-center'>Service Manage Detils</h1>
             <div className="container">
                 <table className="table">
                     <thead>
                         <tr className='text-center'>
                             <th scope="col">#id</th>
                             <th scope="col">Name</th>
-                            <th scope="col">location</th>
-                            <th scope="col">Images</th>
+                            <th scope="col">desc</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -43,10 +28,8 @@ function PackManage() {
                                     <tr className='text-center' key={key}>
                                         <th scope="row">{data.id}</th>
                                         <td>{data.name}</td>
-                                        <td>{data.loaction}</td>
-                                        <td>
-                                            <img src={data.img} style={{width:"100px"}} alt="" />
-                                        </td>
+                                        <td>{data.desc.slice(0,40)}...</td>
+                                       
                                         <td>
                                             <button className='btn btn-info'>View</button>
                                             <button className='btn btn-success mx-2'>Edit</button>
@@ -60,8 +43,8 @@ function PackManage() {
                     </tbody>
                 </table>
             </div>
-        </div>
-    )
+    </div>
+  )
 }
 
-export default PackManage
+export default ServiceManage

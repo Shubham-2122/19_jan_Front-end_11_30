@@ -16,8 +16,14 @@ function AHeader() {
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav mb-0 ms-auto nav_left">
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link " aria-current="page" to="/packmange" >package</NavLink>
+                                     <li className="nav-item dropdown">
+                                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Package
+                                        </a>
+                                        <ul className="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+                                            <li><NavLink className="dropdown-item" to="/packmange">package Manage</NavLink></li>
+                                            <li><NavLink className="dropdown-item border-0" to="/packadd" > Package Add</NavLink></li>
+                                        </ul>
                                     </li>
                                      <li className="nav-item">
                                         <NavLink className="nav-link"  to="/sermange" >Services </NavLink>
@@ -34,15 +40,7 @@ function AHeader() {
                                             <li><NavLink className="dropdown-item border-0" to="/blogsd" > Blog Detail</NavLink></li>
                                         </ul>
                                     </li>
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Package
-                                        </a>
-                                        <ul className="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-                                            <li><NavLink className="dropdown-item" to="/package"> Package</NavLink></li>
-                                            <li><NavLink className="dropdown-item border-0" to="/packaged" > Package Detail</NavLink></li>
-                                        </ul>
-                                    </li>
+                                   
                                    
                                     <li className="nav-item">
                                         <NavLink className="nav-link"  to="/price" >Pricing </NavLink>

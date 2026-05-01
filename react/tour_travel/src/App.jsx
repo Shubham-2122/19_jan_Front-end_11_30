@@ -13,6 +13,7 @@ import NotFound from './website/pages/NotFound'
 import Dashboard from './Admin/Apages/Dashboard'
 import PackManage from './Admin/Apages/PackManage'
 import ServiceManage from './Admin/Apages/ServiceManage'
+import PackAdd from './Admin/Apages/PackAdd'
 
 function App() {
   return (
@@ -35,12 +36,14 @@ function App() {
           {/* Admin */}
           <Route path='/dash' element={<Dashboard />} />
           <Route path='/packmange' element={<PackManage />} />
-     <Route path='/sermange' element={<ServiceManage />} />
-          
+          <Route path='/sermange' element={<ServiceManage />} />
+
+          <Route path='/packadd' element={<PackAdd />} />
+
         </Routes>
       </div>
     </BrowserRouter>
-  ) 
+  )
 }
 
 export default App

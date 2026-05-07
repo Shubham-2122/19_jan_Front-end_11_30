@@ -2,18 +2,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 function useApi(apilink) {
-    const [api,setapi] = useState([])
-
-    useEffect(()=>{
-        fetchdata()
-    },[])
+    const [api,setapi] = useState([])   
 
     const fetchdata =async()=>{
         const res = await axios.get(`${apilink}`)
         setapi(res.data)
     }
 
-    return {api}
+    return {api,fetchdata}
 }
 
 export default useApi

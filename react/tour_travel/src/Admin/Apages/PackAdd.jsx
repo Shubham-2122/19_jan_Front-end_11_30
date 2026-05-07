@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import AHeader from '../Acoman/AHeader'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function PackAdd() {
 
@@ -31,6 +32,13 @@ function PackAdd() {
         e.preventDefault();
 
         try {
+
+            if(pack.days == "" || pack.desc == "" || pack.img == "" || pack.loaction== "" || pack.name == "" || pack.price == ""){
+                console.log("pls Field a Package data")
+                toast.error("pls Field a Package data")
+                return false
+            }
+
             const res = await axios.post("http://localhost:3000/package", pack)
             console.log(res.data)
             setpack({
@@ -42,6 +50,7 @@ function PackAdd() {
                 img: ""
             })
             redirect("/packmange")
+            toast.success("Package successfully Added")
         } catch (error) {
             console.log("APi data not Found", error)
         }

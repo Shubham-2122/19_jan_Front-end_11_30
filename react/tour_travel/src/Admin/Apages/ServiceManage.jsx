@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AHeader from '../Acoman/AHeader'
 import useApi from '../../Custom/useApi'
 
 function ServiceManage() {
 
-    const {api} = useApi("http://localhost:3000/service")
+    useEffect(()=>{
+        fetchdata()
+    },[])
+
+    const {api,fetchdata} = useApi("http://localhost:3000/service")
 
   return (
     <div>

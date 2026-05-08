@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../Comana/Header'
 import NavTitle from '../Comana/NavTitle'
 import Footer from '../Comana/Footer'
@@ -6,7 +6,11 @@ import useApi from '../../Custom/useApi'
 
 function Package() {
 
-    const {api} = useApi("http://localhost:3000/package")
+    const {api,fetchdata} = useApi("http://localhost:3000/package")
+
+    useEffect(()=>{
+        fetchdata()
+    },[])
 
     return (
         <div>
@@ -204,7 +208,7 @@ function Package() {
                                                     <div className="desti3im1i1i row">
                                                         <div className="col-md-6 col-6">
                                                             <div className="desti3im1i1il">
-                                                                <h6 className="mb-0 font_14"><a href="detail.html"><i className="fa fa-clock-o me-1 col_green" /> 1 Week</a></h6>
+                                                                <h6 className="mb-0 font_14"><a href="detail.html"><i className="fa fa-clock-o me-1 col_green" /> {data.days} days</a></h6>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-6">

@@ -34,12 +34,12 @@
     },
     {
       "id": "3",
-      "name": "Safari World Bangkok",
+      "name": "Safari Worlds Bangkok",
       "loaction": "Bangkok",
       "desc": "Visit the temples and the Chiang Mai Night Bazaar, a huge huge market located on Chiang Klan Road.",
-      "days": 4,
+      "days": "6",
       "img": "https://hblimg.mmtcdn.com/content/hubble/img/new_dest_imagemar/mmt/activities/m_Bangkok_1_l_658_1200.jpg",
-      "price": "270"
+      "price": "300"
     },
     {
       "id": "1778148301744",

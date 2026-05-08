@@ -63,11 +63,43 @@ function PackManage() {
     img: "",
   });
 
-  const getdata=(data)=>{
+  const getdata = (data) => {
     console.log(data)
     setediting(data)
     setpackedit(data)
   }
+
+  const getchange = (e) => {
+    setediting({
+      ...editing,
+      [e.target.name]: e.target.value
+    })
+    console.log(editing)
+  }
+
+  const UpdatePack = async (e) => {
+    e.preventDefault();
+
+
+    try {
+      if (editing.days == "" || editing.desc == "" || editing.img == "" || editing.loaction == "" || editing.name == "" || editing.price == "") {
+        console.log("pls Field a Package data")
+        toast.error("pls Field a Package data")
+        return false
+      }
+
+      const res = await axios.put(`http://localhost:3000/package/${editing.id}`, editing)
+      console.log(res.data)
+      toast.success("Package Update Successfully")
+      fetchdata()
+      setpackedit(null)
+
+    } catch (error) {
+      console.log("API Data Not Foun", error)
+      toast.error("Api data not Found")
+    }
+  }
+
 
   return (
     <div>
@@ -105,7 +137,7 @@ function PackManage() {
                       >
                         View
                       </button>
-                      <button className="btn btn-success mx-2" onClick={()=>getdata(data)}>Edit</button>
+                      <button className="btn btn-success mx-2" onClick={() => getdata(data)}>Edit</button>
                       <button
                         className="btn btn-danger"
                         onClick={() => deletePack(data.id)}
@@ -235,63 +267,63 @@ function PackManage() {
 
         {
           packedit && (
-              <div className="col-12 my-5 mx-auto">
-                <div className="contact_2l">
-                    <form action="" >
+            <div className="col-12 my-5 mx-auto">
+              <div className="contact_2l">
+                <form action="" >
 
-                        <h1 className="mt-3">PackAge Update</h1>
-                        <div className="blog_dt1ib3i row">
-                            <div className="col-md-6">
-                                <div className="blog_dt1ib3il">
-                                    <input placeholder="Name"  name='name' value={editing.name}  className="form-control border-0 bg-light" type="text" />
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="blog_dt1ib3il">
-                                    <input placeholder="Loaction"  name='loaction' value={editing.loaction}  className="form-control border-0 bg-light" type="text" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="blog_dt1ib3i row mt-4">
-                            <div className="col-md-6">
-                                <div className="blog_dt1ib3il">
-                                    <input placeholder="Enter your Days"  name='days' value={editing.days} className="form-control border-0 bg-light" type="text" />
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="blog_dt1ib3il">
-                                    <input placeholder="Enter your Price"  name='price' value={editing.price}  className="form-control border-0 bg-light" type="text" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="blog_dt1ib3i row mt-4">
-                            <div className="col-md-12">
-                                <div className="blog_dt1ib3il">
-                                    <input placeholder="Enter your Images" name='img' value={editing.img}  className="form-control border-0 bg-light" type="url" />
-                                </div>
-                            </div>
+                  <h1 className="mt-3">PackAge Update</h1>
+                  <div className="blog_dt1ib3i row">
+                    <div className="col-md-6">
+                      <div className="blog_dt1ib3il">
+                        <input placeholder="Name" name='name' onChange={getchange} value={editing.name} className="form-control border-0 bg-light" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="blog_dt1ib3il">
+                        <input placeholder="Loaction" name='loaction' onChange={getchange} value={editing.loaction} className="form-control border-0 bg-light" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="blog_dt1ib3i row mt-4">
+                    <div className="col-md-6">
+                      <div className="blog_dt1ib3il">
+                        <input placeholder="Enter your Days" name='days' onChange={getchange} value={editing.days} className="form-control border-0 bg-light" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="blog_dt1ib3il">
+                        <input placeholder="Enter your Price" name='price' onChange={getchange} value={editing.price} className="form-control border-0 bg-light" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="blog_dt1ib3i row mt-4">
+                    <div className="col-md-12">
+                      <div className="blog_dt1ib3il">
+                        <input placeholder="Enter your Images" name='img' onChange={getchange} value={editing.img} className="form-control border-0 bg-light" type="url" />
+                      </div>
+                    </div>
 
-                        </div>
-                        <div className="blog_dt1ib3i row mt-4">
-                            <div className="col-md-12">
-                                <div className="blog_dt1ib3il">
-                                    <textarea placeholder="Enter your  desc"  name='desc' value={editing.desc} className="form-control form_text border-0 bg-light" defaultValue={""} />
+                  </div>
+                  <div className="blog_dt1ib3i row mt-4">
+                    <div className="col-md-12">
+                      <div className="blog_dt1ib3il">
+                        <textarea placeholder="Enter your  desc" name='desc' onChange={getchange} value={editing.desc} className="form-control form_text border-0 bg-light" defaultValue={""} />
 
-                                </div>
-                            </div>
-                            <div className="col-md-12 mt-4">
-                                <div className="row">
-                                  <div className="col-md-6">
-                                    <input className="form-control btn btn-success" type="submit" value="update" />
-                                  </div>
-                                   <div className="col-md-6">
-                                    <input className="form-control btn btn-success" type="submit" onClick={()=>setpackedit(null)} value="Cancle update" />
-                                  </div>
-                                </div>
-                            </div>
+                      </div>
+                    </div>
+                    <div className="col-md-12 mt-4">
+                      <div className="row">
+                        <div className="col-md-6">
+                          <input className="form-control btn btn-success" onClick={UpdatePack} type="submit" value="update" />
                         </div>
-                    </form>
-                </div>
+                        <div className="col-md-6">
+                          <input className="form-control btn btn-success" type="submit" onClick={() => setpackedit(null)} value="Cancle update" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           )
         }

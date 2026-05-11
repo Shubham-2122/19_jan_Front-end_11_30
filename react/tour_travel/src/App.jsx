@@ -15,6 +15,7 @@ import PackManage from "./Admin/Apages/PackManage";
 import ServiceManage from "./Admin/Apages/ServiceManage";
 import PackAdd from "./Admin/Apages/PackAdd";
 import { Slide, ToastContainer } from "react-toastify";
+import Alogin from "./Admin/Apages/Alogin";
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
           <Route path="/sermange" element={<ServiceManage />} />
 
           <Route path="/packadd" element={<PackAdd />} />
+
+          <Route path="/alogin" element={<Alogin />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,7 +1,24 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function Header() {
+
+    const redirect = useNavigate()
+
+    useEffect(() => {
+        if (!localStorage.getItem("Uid")) {
+            redirect("/ulogin")
+        }
+    })
+
+    const logout = () => {
+        localStorage.removeItem("Uid")
+        localStorage.removeItem("Uname")
+        redirect("/ulogin")
+        toast.success("users logout Successfully")
+    }
+
     return (
         <div>
             <div>
@@ -46,7 +63,7 @@ function Header() {
                                         <NavLink className="nav-link " aria-current="page" to="/" >Home</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link"  to="/about">About </NavLink>
+                                        <NavLink className="nav-link" to="/about">About </NavLink>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,26 +84,47 @@ function Header() {
                                         </ul>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link"  to="/service" >Services </NavLink>
+                                        <NavLink className="nav-link" to="/service" >Services </NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link"  to="/price" >Pricing </NavLink>
+                                        <NavLink className="nav-link" to="/price" >Pricing </NavLink>
                                     </li>
-                                 
+
                                     <li className="nav-item">
-                                         <NavLink className="nav-link"  to="/contact" >Contact </NavLink>
+                                        <NavLink className="nav-link" to="/contact" >Contact </NavLink>
                                     </li>
                                 </ul>
                                 <ul className="navbar-nav mb-0 ms-auto nav_right">
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#"><i className="fa fa-facebook" /> </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#"><i className="fa fa-twitter" /> </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#"><i className="fa fa-youtube-play" /> </a>
-                                    </li>
+                                    {
+                                        (() => {
+                                            if (localStorage.getItem("Uid")) {
+                                                return (
+                                                    <li className="nav-item">
+                                                        <NavLink className="nav-link"  >hello {localStorage.getItem("Uname")} </NavLink>
+                                                    </li>
+                                                )
+                                            }
+                                        })()
+                                    }
+
+                                    {
+                                        (() => {
+                                            if (localStorage.getItem("Uid")) {
+                                                return (
+                                                    <li className="nav-item">
+                                                        <NavLink className="nav-link" onClick={logout} >Logout</NavLink>
+                                                    </li>
+                                                )
+                                            }
+                                            else {
+                                                return (
+                                                    <li className="nav-item">
+                                                        <NavLink className="nav-link"  >login</NavLink>
+                                                    </li>
+                                                )
+                                            }
+                                        })()
+                                    }
                                 </ul>
                             </div>
                         </div>

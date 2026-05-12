@@ -16,6 +16,9 @@ import ServiceManage from "./Admin/Apages/ServiceManage";
 import PackAdd from "./Admin/Apages/PackAdd";
 import { Slide, ToastContainer } from "react-toastify";
 import Alogin from "./Admin/Apages/Alogin";
+import Ulogin from "./website/pages/Ulogin";
+import Register from "./website/pages/Register";
+
 
 function App() {
   return (
@@ -44,6 +47,8 @@ function App() {
           <Route path="/package" element={<Package />} />
           <Route path="/packaged" element={<PackageDtai />} />
           <Route path="/service" element={<Services />} />
+          <Route path="/ulogin" element={<Ulogin />} />
+          <Route path="/newdata" element={<Register />} />
 
           <Route path="*" element={<NotFound />} />
 

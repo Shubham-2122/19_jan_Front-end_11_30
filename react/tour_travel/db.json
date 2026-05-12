@@ -20,6 +20,20 @@
       "email": "user@gmail.com",
       "password": "123456",
       "status": "unblock"
+    },
+    {
+      "id": "2",
+      "name": "user2",
+      "email": "user2@gmail.com",
+      "password": "123456",
+      "status": "block"
+    },
+    {
+      "id": "3-Jqc-KkgI4",
+      "name": "shubham",
+      "email": "shubham@gmail.com",
+      "password": "1234",
+      "status": "unblock"
     }
   ],
   "package": [

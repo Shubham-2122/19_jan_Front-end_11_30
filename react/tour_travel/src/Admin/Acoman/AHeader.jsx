@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function AHeader() {
 
@@ -10,6 +11,13 @@ function AHeader() {
             redirect("/alogin")
         }
     })
+
+    const logout=()=>{
+        localStorage.removeItem("Aid")
+        localStorage.removeItem("Aname")
+        redirect("/alogin")
+        toast.success("Admin logout Successfully")
+    }
 
     return (
         <div>
@@ -66,6 +74,25 @@ function AHeader() {
                                                     return (
                                                         <li className="nav-item">
                                                             <NavLink className="nav-link"  >hello {localStorage.getItem("Aname")} </NavLink>
+                                                        </li>
+                                                    )
+                                                }
+                                            })()
+                                        }
+
+                                        {
+                                            (()=>{
+                                                if(localStorage.getItem("Aid")){
+                                                    return(
+                                                        <li className="nav-item">
+                                                            <NavLink className="nav-link" onClick={logout} >Logout</NavLink>
+                                                        </li>
+                                                    )
+                                                }
+                                                else{
+                                                    return(
+                                                         <li className="nav-item">
+                                                            <NavLink className="nav-link"  >Alogin</NavLink>
                                                         </li>
                                                     )
                                                 }

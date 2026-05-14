@@ -18,6 +18,7 @@ import { Slide, ToastContainer } from "react-toastify";
 import Alogin from "./Admin/Apages/Alogin";
 import Ulogin from "./website/pages/Ulogin";
 import Register from "./website/pages/Register";
+import EditProfile from "./website/pages/EditProfile";
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route path="/service" element={<Services />} />
           <Route path="/ulogin" element={<Ulogin />} />
           <Route path="/newdata" element={<Register />} />
+           <Route path="/editprofile" element={<EditProfile />} />
 
           <Route path="*" element={<NotFound />} />
 

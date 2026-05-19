@@ -1,0 +1,35 @@
+Redux : Global State management 
+      : Redux Javascript lib
+
+Redux : React,agul,vue 
+
+React+redux : single store
+
+Redux Flow version 
+1) Store : single store
+2) Reducer  : logical
+3) Action : triiger functionality access
+
+customer : need Action 
+seller Reducer : Store
+
+State : usecontext : change : useSelector : store state access
+Reducer : useReducer : change : useDispatch : functionality access
+
+Redux New version : RTK : Redux toolkit
+1) Store 
+2) Slice : Action + reducer
+
+
+State : usecontext : change : useSelector : store state access
+Reducer : useReducer : change : useDispatch : functionality access
+
+
+
+
+
+
+
+
+
+

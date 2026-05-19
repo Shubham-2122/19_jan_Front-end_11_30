@@ -34,6 +34,13 @@
       "email": "shubham@gmail.com",
       "password": "1234",
       "status": "unblock"
+    },
+    {
+      "id": "CgoO6oI4vQw",
+      "name": "anshu",
+      "email": "anshu@gmail.com",
+      "password": "123456",
+      "status": "unblock"
     }
   ],
   "package": [
@@ -53,7 +60,7 @@
       "desc": "Visit the temples and the Chiang Mai Night Bazaar, a huge huge market located on Chiang Klan Road.",
       "days": "6",
       "img": "https://hblimg.mmtcdn.com/content/hubble/img/new_dest_imagemar/mmt/activities/m_Bangkok_1_l_658_1200.jpg",
-      "price": "300"
+      "price": "400"
     },
     {
       "id": "1778148301744",

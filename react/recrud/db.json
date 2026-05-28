@@ -1,22 +1,11 @@
 {
-    "users":[
-        {
-            "id":1,
-            "name":"user",
-            "email":"user@gmail.com",
-            "password":"1234"
-        },
-        {
-            "id":2,
-            "name":"user2",
-            "email":"user2@gmail.com",
-            "password":"1234"
-        },
-        {
-            "id":3,
-            "name":"user3",
-            "email":"user3@gmail.com",
-            "password":"1234"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "name": "user",
+      "email": "user@gmail.com",
+      "password": "1234"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

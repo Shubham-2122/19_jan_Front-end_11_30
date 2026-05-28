@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userRead } from '../Slices/userSlice'
+import { deleteUser, userRead } from '../Slices/userSlice'
 
 function Home() {
 
-    const { users, loading } = useSelector((state) => state.user)
+    const { users, loading} = useSelector((state) => state.user)
     console.log(users)
     // console.log(loading)
 
@@ -39,7 +39,7 @@ function Home() {
                                         <td>
                                             <button className='btn btn-info'>View</button>
                                             <button className='btn btn-success mx-2'>Edit</button>
-                                            <button className='btn btn-danger'>Delete</button>
+                                            <button className='btn btn-danger' onClick={()=>dispatch(deleteUser(data.id))} >Delete</button>
                                         </td>
                                     </tr>
                                 )

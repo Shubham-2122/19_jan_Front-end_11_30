@@ -3,6 +3,7 @@ import Home from './Pages/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import UserForm from './Pages/UserForm'
 import Header from './Compnent/Header'
+import EditData from './Pages/EditData'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/new' element={<UserForm />} />
+         <Route path='/edit/:id' element={<EditData />} />
       </Routes>
     </div>
     </BrowserRouter>

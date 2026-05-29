@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteUser, userRead } from '../Slices/userSlice'
+import { Link } from 'react-router-dom'
 
 function Home() {
 
     const { users, loading} = useSelector((state) => state.user)
-    console.log(users)
+    // console.log(users)
     // console.log(loading)
 
     const dispatch = useDispatch()
@@ -38,7 +39,7 @@ function Home() {
                                         <td>{data.email}</td>
                                         <td>
                                             <button className='btn btn-info'>View</button>
-                                            <button className='btn btn-success mx-2'>Edit</button>
+                                            <Link to={`/edit/${data.id}`} className='btn btn-success mx-2'>Edit</Link>
                                             <button className='btn btn-danger' onClick={()=>dispatch(deleteUser(data.id))} >Delete</button>
                                         </td>
                                     </tr>

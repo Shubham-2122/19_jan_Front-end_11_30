@@ -5,6 +5,24 @@
       "name": "user",
       "email": "user@gmail.com",
       "password": "1234"
+    },
+    {
+      "id": "QMp6rgQZlO8",
+      "name": "shubham",
+      "email": "shubhamj@gmail.com",
+      "password": "34543"
+    },
+    {
+      "id": "pnV512vGXIc",
+      "name": "sujal",
+      "email": "sujal@gmail.com",
+      "password": "sdfsdf"
+    },
+    {
+      "id": "NxH8fLqILDU",
+      "name": "karan",
+      "email": "karan@gmail.com",
+      "password": "sdfsd"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -39,6 +39,18 @@ export const deleteUser = createAsyncThunk(
     }
 )
 
+// edit users
+export const EditUser = createAsyncThunk(
+    'EditUser', async (data, { rejectWithValue }) => {
+        try {
+            const res = await axios.put(`http://localhost:3000/users/${data.id}`,data)
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+
 export const userSlice = createSlice({
     name: "userDetails",
     initialState: {
@@ -97,6 +109,23 @@ export const userSlice = createSlice({
 
             })
             .addCase(deleteUser.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            })
+            // edit user
+             .addCase(EditUser.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(EditUser.fulfilled, (state, action) => {
+                state.loading = false
+                
+                state.users = state.users.map((data)=>{   
+                    // 
+                    data.id === action.payload.id ? action.payload : data
+                })
+
+            })
+            .addCase(EditUser.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.payload
             })

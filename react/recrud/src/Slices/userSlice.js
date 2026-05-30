@@ -121,7 +121,7 @@ export const userSlice = createSlice({
                 
                 state.users = state.users.map((data)=>{   
                     // 
-                    data.id === action.payload.id ? action.payload : data
+                    data.id === action.payload.id ? action.payload.id : users
                 })
 
             })

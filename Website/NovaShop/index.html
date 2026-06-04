@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="NovaShop - Your Premium E-Commerce Destination for Electronics, Fashion, and Accessories.">
+    <meta name="keywords" content="e-commerce, shopping, technology, fashion, luxury">
+    <title>NovaShop | Premium E-Commerce Experience</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header class="glass-effect fade-in-down">
+        <div class="logo">NovaShop</div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search for products...">
+        </div>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="pages/products.html">Shop</a>
+            <a href="pages/wishlist.html">Wishlist</a>
+            <a href="pages/contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-icons">
+            <button class="icon-btn theme-toggle" onclick="DarkMode.toggle()">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <a href="pages/wishlist.html" class="icon-btn">
+                <i class="far fa-heart"></i>
+                <span class="badge">0</span>
+            </a>
+
+            <a href="pages/cart.html" class="icon-btn">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="badge cart-count">0</span>
+            </a>
+
+            <div class="profile-dropdown">
+                <button class="icon-btn"><i class="far fa-user"></i></button>
+                <div class="dropdown-content glass-effect">
+                    <a href="pages/dashboard.html" class="dropdown-item"><i class="fas fa-columns"></i> Dashboard</a>
+                    <a href="pages/login.html" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 0.5rem 0;">
+                    <a href="#" class="dropdown-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i>
+                        Logout</a>
+                </div>
+            </div>
+
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero gradient-animate">
+        <div class="hero-content">
+            <div class="discount-badge fade-in-up pulse">
+                <i class="fas fa-tag"></i> Limited Offer: Get 30% Off
+            </div>
+            <h1 class="fade-in-up delay-1">Unleash Your <br><span style="color: var(--primary-color)">Luxury</span>
+                Potential.</h1>
+            <p class="fade-in-up delay-2">Step into a world of curated elegance and high-performance technology. Your
+                journey to perfection starts here.</p>
+            <div class="cta-group fade-in-up delay-3">
+                <a href="pages/products.html" class="btn btn-primary">Shop Now <i class="fas fa-shopping-bag"></i></a>
+                <a href="#featured" class="btn btn-outline">Explore Collection <i class="fas fa-compass"></i></a>
+            </div>
+        </div>
+
+        <!-- Product Showcase Visual -->
+        <div class="hero-visual fade-in-up delay-2">
+            <div class="hero-img-wrapper float">
+                <img src="images/product-1.jpg" alt="Featured Product" class="hero-img">
+            </div>
+            <div class="hero-blob"></div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <a href="#featured" class="scroll-down">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down scroll-icon"></i>
+        </a>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="featured">
+        <div style="padding: 5rem 5% 0;">
+            <h2 class="fade-in-up">Featured Products</h2>
+            <p class="text-muted fade-in-up delay-1">Handpicked quality for our elite customers.</p>
+        </div>
+        <div id="featured-products" class="products-grid">
+            <!-- Products will be injected by products.js -->
+        </div>
+    </section>
+
+    <!-- Newsletter / CTA -->
+    <section class="glass-effect" style="margin: 5rem 5%; padding: 5rem; border-radius: 30px; text-align: center;">
+        <h2 class="fade-in-up">Stay Ahead of the Curve</h2>
+        <p class="text-muted fade-in-up delay-1" style="margin-bottom: 2rem;">Subscribe to receive updates on new drops
+            and exclusive offers.</p>
+        <div style="max-width: 500px; margin: 0 auto; display: flex; gap: 1rem;" class="fade-in-up delay-2">
+            <input type="email" placeholder="Enter your email"
+                style="padding: 1rem 1.5rem; border-radius: 50px; border: 1px solid var(--glass-border); flex: 1; outline: none; background: var(--card-bg); color: var(--text-main);">
+            <button class="btn btn-primary">Subscribe</button>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <div id="footer-placeholder">
+        <!-- Footer Content -->
+        <footer style="margin-top: 5rem;">
+            <div class="footer-grid">
+                <div class="footer-content">
+                    <div class="logo" style="margin-bottom: 1rem;">NovaShop</div>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">Elevating your shopping experience with curated
+                        premium products and seamless technology.</p>
+                </div>
+                <!-- ... other columns ... -->
+                <div class="footer-content">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="pages/products.html">Shop</a></li>
+                        <li><a href="pages/cart.html">Cart</a></li>
+                        <li><a href="pages/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 NovaShop. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/darkmode.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Render featured products on home page
+        renderProducts('featured-products');
+    </script>
+</body>
+
+</html>

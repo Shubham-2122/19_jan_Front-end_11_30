@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Products | NovaShop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+
+<body>
+
+    <!-- Reusable Header (hardcoded for PLP demo) -->
+    <header class="glass-effect scrolled">
+        <div class="logo">NovaShop</div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="plp-search" class="search-input" placeholder="Search product name..."
+                onkeyup="filterProducts()">
+        </div>
+        <nav class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="products.html" class="active">Shop</a>
+            <a href="wishlist.html">Wishlist</a>
+        </nav>
+        <div class="nav-icons">
+            <button class="icon-btn theme-toggle" onclick="DarkMode.toggle()"><i class="fas fa-moon"></i></button>
+            <a href="cart.html" class="icon-btn"><i class="fas fa-shopping-bag"></i><span
+                    class="badge cart-count">0</span></a>
+        </div>
+    </header>
+
+    <main style="padding-top: 100px;">
+        <div class="plp-container">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <h4 class="filter-title">Categories</h4>
+                    <label class="filter-item"><input type="checkbox" value="Electronics" onchange="filterProducts()">
+                        Electronics</label>
+                    <label class="filter-item"><input type="checkbox" value="Fashion" onchange="filterProducts()">
+                        Fashion</label>
+                    <label class="filter-item"><input type="checkbox" value="Accessories" onchange="filterProducts()">
+                        Accessories</label>
+                </div>
+
+                <div class="filter-section">
+                    <h4 class="filter-title">Price Range</h4>
+                    <input type="range" min="0" max="1000" value="1000" class="price-range" id="price-range"
+                        oninput="updatePriceLabel(this.value)">
+                    <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.8rem;">
+                        <span>$0</span>
+                        <span id="price-label">$1000</span>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h4 class="filter-title">Customer Ratings</h4>
+                    <label class="filter-item"><input type="radio" name="rating" value="4" onchange="filterProducts()">
+                        4★ & Above</label>
+                    <label class="filter-item"><input type="radio" name="rating" value="3" onchange="filterProducts()">
+                        3★ & Above</label>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="plp-content">
+                <div class="plp-toolbar">
+                    <p id="product-count" class="text-muted">Showing all products</p>
+                    <select class="sort-select" id="sort-by" onchange="filterProducts()">
+                        <option value="default">Sort by: Relevance</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popularity">Popularity</option>
+                    </select>
+                </div>
+
+                <div id="products-container" class="products-grid">
+                    <!-- Skeleton loaders will be here briefly, then products -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/darkmode.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        // Initial render with skeleton effect
+        document.addEventListener('DOMContentLoaded', () => {
+            showSkeletons();
+            setTimeout(() => {
+                renderProducts('products-container');
+                updateProductCount();
+            }, 800);
+        });
+
+        function showSkeletons() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = Array(6).fill(0).map(() => `
+                <div class="product-card skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-price"></div>
+                </div>
+            `).join('');
+        }
+
+        function updatePriceLabel(val) {
+            document.getElementById('price-label').textContent = `$${val}`;
+            filterProducts();
+        }
+
+        function updateProductCount() {
+            const count = document.querySelectorAll('.product-card:not(.skeleton-card)').length;
+            document.getElementById('product-count').textContent = `Showing ${count} products`;
+        }
+
+        // Filtering & Sorting Logic
+        function filterProducts() {
+            const searchTerm = document.getElementById('plp-search').value.toLowerCase();
+            const maxPrice = document.getElementById('price-range').value;
+            const sortBy = document.getElementById('sort-by').value;
+
+            const selectedCategories = Array.from(document.querySelectorAll('.filter-section input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+
+            const minRating = document.querySelector('input[name="rating"]:checked')?.value || 0;
+
+            let filtered = products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(searchTerm);
+                const matchesPrice = p.price <= maxPrice;
+                const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(p.category);
+                const matchesRating = p.rating >= minRating;
+                return matchesSearch && matchesPrice && matchesCategory && matchesRating;
+            });
+
+            if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
+            if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
+            // Popularity can be simulated by id or rating
+            if (sortBy === 'popularity') filtered.sort((a, b) => b.rating - a.rating);
+
+            // Re-render with adjusted paths for subfolder
+            const adjusted = filtered.map(p => ({ ...p, image: '../' + p.image }));
+            renderProducts('products-container', adjusted);
+            updateProductCount();
+        }
+    </script>
+</body>
+
+</html>

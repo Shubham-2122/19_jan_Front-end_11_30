@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | NovaShop</title>
+    <meta name="description" content="Complete your NovaShop order securely with card, UPI or Cash on Delivery.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+
+<body>
+
+    <!-- Minimal Checkout Header -->
+    <header class="glass-effect scrolled" style="justify-content:space-between;">
+        <a href="../index.html" class="logo" style="text-decoration:none;">NovaShop</a>
+        <div style="display:flex;align-items:center;gap:0.5rem;color:var(--text-muted);font-size:0.85rem;">
+            <i class="fas fa-lock" style="color:#22c55e;"></i> Secure SSL Checkout
+        </div>
+        <button class="icon-btn theme-toggle" onclick="DarkMode.toggle()" title="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
+    <main style="padding-top:110px;">
+
+        <!-- Progress Steps -->
+        <div class="checkout-steps fade-in-down">
+            <div class="step done">
+                <div class="step-num"><i class="fas fa-check" style="font-size:0.7rem;"></i></div>
+                <span>Cart</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step active">
+                <div class="step-num">2</div>
+                <span>Checkout</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <span>Confirmation</span>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="checkout-container" id="checkout-container">
+
+            <!-- LEFT: Forms -->
+            <div class="checkout-forms">
+
+                <!-- Shipping Address -->
+                <div class="checkout-section fade-in-left">
+                    <h3><i class="fas fa-map-marker-alt"></i> Shipping Address</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input id="first-name" class="form-input" type="text" placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input id="last-name" class="form-input" type="text" placeholder="Doe">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="ship-email">Email Address</label>
+                            <input id="ship-email" class="form-input" type="email" placeholder="john.doe@example.com">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="ship-phone">Phone Number</label>
+                            <input id="ship-phone" class="form-input" type="tel" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="ship-address">Street Address</label>
+                            <input id="ship-address" class="form-input" type="text"
+                                placeholder="123, MG Road, Apartment 4B">
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-city">City</label>
+                            <input id="ship-city" class="form-input" type="text" placeholder="Mumbai">
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-state">State</label>
+                            <select id="ship-state" class="form-input">
+                                <option value="" disabled selected>Select state</option>
+                                <option>Maharashtra</option>
+                                <option>Delhi</option>
+                                <option>Karnataka</option>
+                                <option>Tamil Nadu</option>
+                                <option>Gujarat</option>
+                                <option>Rajasthan</option>
+                                <option>West Bengal</option>
+                                <option>Uttar Pradesh</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-pin">PIN Code</label>
+                            <input id="ship-pin" class="form-input" type="text" placeholder="400001" maxlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input class="form-input" type="text" value="India" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Address -->
+                <div class="checkout-section fade-in-left">
+                    <h3><i class="fas fa-file-invoice"></i> Billing Address</h3>
+                    <label class="same-billing-row">
+                        <input type="checkbox" id="same-as-shipping" checked onchange="toggleBillingForm(this)">
+                        Same as shipping address
+                    </label>
+                    <div id="billing-form-fields" style="display:none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input class="form-input" type="text" placeholder="John">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input class="form-input" type="text" placeholder="Doe">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Street Address</label>
+                                <input class="form-input" type="text" placeholder="Billing street address">
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <input class="form-input" type="text" placeholder="City">
+                            </div>
+                            <div class="form-group">
+                                <label>PIN Code</label>
+                                <input class="form-input" type="text" placeholder="400001">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="checkout-section fade-in-left">
+                    <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+                    <div class="payment-options">
+
+                        <!-- Credit / Debit Card -->
+                        <div class="payment-option selected" id="opt-card" onclick="selectPayment('card')">
+                            <div class="payment-option-header">
+                                <input type="radio" name="payment" id="radio-card" checked>
+                                <label for="radio-card" class="method-label">Credit / Debit Card</label>
+                                <div class="method-icons">
+                                    <i class="fab fa-cc-visa"></i>
+                                    <i class="fab fa-cc-mastercard"></i>
+                                    <i class="fab fa-cc-amex"></i>
+                                </div>
+                            </div>
+                            <div class="card-form visible" id="card-form">
+                                <div class="form-group card-number-wrap">
+                                    <label>Card Number</label>
+                                    <input id="card-number" class="form-input" type="text"
+                                        placeholder="1234  5678  9012  3456" maxlength="19"
+                                        oninput="formatCardNumber(this)">
+                                    <i class="fab fa-cc-visa card-type-icon" id="card-icon"></i>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Expiry Date</label>
+                                        <input class="form-input" type="text" placeholder="MM / YY" maxlength="7"
+                                            oninput="formatExpiry(this)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CVV</label>
+                                        <input class="form-input" type="password" placeholder="..." maxlength="4">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cardholder Name</label>
+                                    <input class="form-input" type="text" placeholder="As printed on card">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPI -->
+                        <div class="payment-option" id="opt-upi" onclick="selectPayment('upi')">
+                            <div class="payment-option-header">
+                                <input type="radio" name="payment" id="radio-upi">
+                                <label for="radio-upi" class="method-label">UPI</label>
+                                <div class="method-icons" style="font-size:0.9rem;font-weight:700;gap:0.75rem;">
+                                    <span style="color:#5f259f;">PhonePe</span>
+                                    <span style="color:#097939;">GPay</span>
+                                    <span style="color:#0075ff;">Paytm</span>
+                                </div>
+                            </div>
+                            <div class="upi-form" id="upi-form" style="flex-direction:column;">
+                                <div class="upi-apps">
+                                    <button class="upi-app-btn active" type="button"
+                                        onclick="setUpiApp(event,this)">PhonePe</button>
+                                    <button class="upi-app-btn" type="button"
+                                        onclick="setUpiApp(event,this)">GPay</button>
+                                    <button class="upi-app-btn" type="button"
+                                        onclick="setUpiApp(event,this)">Paytm</button>
+                                    <button class="upi-app-btn" type="button"
+                                        onclick="setUpiApp(event,this)">Others</button>
+                                </div>
+                                <div class="form-group">
+                                    <label>UPI ID</label>
+                                    <input class="form-input" type="text" placeholder="yourname@upi">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cash on Delivery -->
+                        <div class="payment-option" id="opt-cod" onclick="selectPayment('cod')">
+                            <div class="payment-option-header">
+                                <input type="radio" name="payment" id="radio-cod">
+                                <label for="radio-cod" class="method-label">Cash on Delivery</label>
+                                <div class="method-icons">
+                                    <i class="fas fa-money-bill-wave" style="color:#22c55e;"></i>
+                                </div>
+                            </div>
+                            <div class="cod-notice" id="cod-notice">
+                                <i class="fas fa-info-circle" style="font-size:1.1rem;"></i>
+                                Pay when your order arrives. A Rs. 40 COD handling fee may apply.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Order Summary -->
+            <div class="checkout-summary-wrapper">
+                <div class="checkout-summary fade-in-up">
+                    <h3>Order Summary</h3>
+
+                    <!-- Populated by JS -->
+                    <div id="checkout-items">
+                        <p class="text-muted" style="text-align:center;padding:1rem 0;">Loading cart...</p>
+                    </div>
+
+                    <!-- Totals -->
+                    <div style="margin-top:1.5rem;">
+                        <div class="summary-row">
+                            <span class="text-muted">Subtotal</span>
+                            <span id="co-subtotal" style="font-weight:600;">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="text-muted">Shipping</span>
+                            <span id="co-shipping" style="font-weight:600;color:#22c55e;">FREE</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="text-muted">Tax</span>
+                            <span style="font-weight:600;">$0.00</span>
+                        </div>
+                        <div class="summary-row summary-total">
+                            <span>Total</span>
+                            <span id="co-total" style="color:var(--primary-color);">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <button class="btn btn-primary place-order-btn" id="place-order-btn" onclick="placeOrder()">
+                        <i class="fas fa-lock"></i>&nbsp; Place Order Securely
+                    </button>
+
+                    <div class="secure-badge">
+                        <i class="fas fa-shield-alt"></i> 256-bit SSL Encrypted
+                        &nbsp;&bull;&nbsp;
+                        <i class="fas fa-undo-alt"></i> 30-day Returns
+                    </div>
+
+                    <!-- Payment logos -->
+                    <div
+                        style="display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;font-size:1.6rem;color:var(--text-muted);">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fab fa-cc-apple-pay"></i>
+                        <i class="fab fa-google-pay"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end checkout-container -->
+    </main>
+
+    <footer style="background:var(--dark-bg);color:white;padding:2rem 10%;margin-top:4rem;">
+        <div class="copyright" style="border:none;padding:0;">
+            &copy; 2026 NovaShop &mdash; Secured Payment Gateway &nbsp;&bull;&nbsp;
+            <a href="#" style="color:#6366f1;">Privacy Policy</a> &nbsp;&bull;&nbsp;
+            <a href="#" style="color:#6366f1;">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script src="../js/darkmode.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        /* ===== Populate Order Summary from LocalStorage ===== */
+        document.addEventListener('DOMContentLoaded', function () {
+            Cart.updateUI();
+            var items = Cart.items;
+            var container = document.getElementById('checkout-items');
+
+            if (!items || items.length === 0) {
+                container.innerHTML =
+                    '<p class="text-muted" style="text-align:center;">' +
+                    'Your cart is empty. <a href="products.html">Shop now &rarr;</a></p>';
+                document.getElementById('place-order-btn').disabled = true;
+                return;
+            }
+
+            container.innerHTML = items.map(function (item) {
+                return '<div class="summary-product-row">' +
+                    '<img src="' + item.image + '" alt="' + item.name + '" class="summary-product-img" loading="lazy">' +
+                    '<div style="flex:1;min-width:0;">' +
+                    '<div class="summary-product-name">' + item.name + '</div>' +
+                    '<div class="summary-product-qty text-muted">Qty: ' + item.quantity + '</div>' +
+                    '</div>' +
+                    '<div class="summary-product-price">$' + (item.price * item.quantity).toFixed(2) + '</div>' +
+                    '</div>';
+            }).join('');
+
+            var totals = Cart.calculateTotals();
+            document.getElementById('co-subtotal').textContent = '$' + totals.subtotal.toFixed(2);
+            document.getElementById('co-shipping').textContent =
+                totals.shipping === 0 ? 'FREE' : '$' + totals.shipping.toFixed(2);
+            document.getElementById('co-total').textContent = '$' + totals.total.toFixed(2);
+        });
+
+        /* ===== Payment Method Switching ===== */
+        function selectPayment(method) {
+            ['card', 'upi', 'cod'].forEach(function (m) {
+                document.getElementById('opt-' + m).classList.remove('selected');
+                document.getElementById('radio-' + m).checked = false;
+            });
+            document.getElementById('card-form').classList.remove('visible');
+            document.getElementById('upi-form').classList.remove('visible');
+            document.getElementById('cod-notice').classList.remove('visible');
+
+            document.getElementById('opt-' + method).classList.add('selected');
+            document.getElementById('radio-' + method).checked = true;
+
+            if (method === 'card') document.getElementById('card-form').classList.add('visible');
+            if (method === 'upi') document.getElementById('upi-form').classList.add('visible');
+            if (method === 'cod') document.getElementById('cod-notice').classList.add('visible');
+        }
+
+        /* ===== Toggle Billing Form ===== */
+        function toggleBillingForm(cb) {
+            document.getElementById('billing-form-fields').style.display = cb.checked ? 'none' : 'block';
+        }
+
+        /* ===== Card Number Auto-formatter + Brand Detect ===== */
+        function formatCardNumber(input) {
+            var raw = input.value.replace(/\D/g, '').substring(0, 16);
+            input.value = raw.replace(/(.{4})/g, '$1  ').trim();
+            var icon = document.getElementById('card-icon');
+            if (raw.charAt(0) === '4') {
+                icon.className = 'fab fa-cc-visa card-type-icon';
+            } else if (/^5[1-5]/.test(raw)) {
+                icon.className = 'fab fa-cc-mastercard card-type-icon';
+            } else if (/^3[47]/.test(raw)) {
+                icon.className = 'fab fa-cc-amex card-type-icon';
+            } else {
+                icon.className = 'fas fa-credit-card card-type-icon';
+            }
+        }
+
+        /* ===== Expiry Auto-formatter ===== */
+        function formatExpiry(input) {
+            var raw = input.value.replace(/\D/g, '').substring(0, 4);
+            if (raw.length >= 3) {
+                raw = raw.substring(0, 2) + ' / ' + raw.substring(2);
+            }
+            input.value = raw;
+        }
+
+        /* ===== UPI App Selector ===== */
+        function setUpiApp(e, btn) {
+            e.stopPropagation();
+            document.querySelectorAll('.upi-app-btn').forEach(function (b) {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+        }
+
+        /* ===== Place Order + Confirmation ===== */
+        function placeOrder() {
+            var name = document.getElementById('first-name').value.trim();
+            var email = document.getElementById('ship-email').value.trim();
+            var address = document.getElementById('ship-address').value.trim();
+
+            if (!name || !email || !address) {
+                alert('Please fill in your Name, Email, and Street Address before placing your order.');
+                document.getElementById('first-name').focus();
+                return;
+            }
+
+            /* Simple email check */
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                alert('Please enter a valid email address.');
+                document.getElementById('ship-email').focus();
+                return;
+            }
+
+            var btn = document.getElementById('place-order-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Processing...';
+
+            /* Simulate processing delay */
+            setTimeout(function () {
+                localStorage.removeItem('novashop_cart');
+
+                document.getElementById('checkout-container').innerHTML =
+                    '<div style="grid-column:1/-1;text-align:center;padding:5rem 2rem;" class="fade-in-up">' +
+                    '<div style="font-size:5rem;color:#22c55e;margin-bottom:1.5rem;animation:pulse 1s 2;">' +
+                    '<i class="fas fa-check-circle"></i>' +
+                    '</div>' +
+                    '<h1 style="font-size:2.5rem;margin-bottom:1rem;">Order Confirmed!</h1>' +
+                    '<p class="text-muted" style="margin-bottom:0.75rem;">' +
+                    'Thank you, <strong>' + name + '</strong>! Your order has been placed successfully.' +
+                    '</p>' +
+                    '<p class="text-muted" style="margin-bottom:0.75rem;">' +
+                    'A confirmation email has been sent to <strong>' + email + '</strong>.' +
+                    '</p>' +
+                    '<p class="text-muted" style="margin-bottom:3rem;">' +
+                    'Estimated Delivery: <strong>3&ndash;5 Business Days</strong>' +
+                    '</p>' +
+                    '<div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">' +
+                    '<a href="products.html" class="btn btn-primary">Continue Shopping</a>' +
+                    '<a href="../index.html" class="btn" style="border:1px solid var(--glass-border);">Back to Home</a>' +
+                    '</div>' +
+                    '</div>';
+            }, 1800);
+        }
+    </script>
+
+</body>
+
+</html>

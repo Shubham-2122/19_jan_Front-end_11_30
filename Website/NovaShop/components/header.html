@@ -1,0 +1,65 @@
+<!-- Enhanced Reusable Header Component -->
+<header class="glass-effect">
+    <div class="logo">NovaShop</div>
+
+    <!-- Search Bar (Shopify/Amazon Style) -->
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search products, brands, and categories...">
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="pages/products.html">Shop</a>
+        <a href="pages/wishlist.html">Wishlist</a>
+        <a href="pages/contact.html">Contact</a>
+    </nav>
+
+    <!-- Action Icons -->
+    <div class="nav-icons">
+        <!-- Theme Toggle -->
+        <button class="icon-btn theme-toggle" onclick="DarkMode.toggle()" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <!-- Wishlist -->
+        <a href="pages/wishlist.html" class="icon-btn" title="Wishlist">
+            <i class="far fa-heart"></i>
+            <span class="badge">0</span>
+        </a>
+
+        <!-- Cart -->
+        <a href="pages/cart.html" class="icon-btn" title="Shopping Cart">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="badge cart-count">0</span>
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="profile-dropdown">
+            <button class="icon-btn" title="Account">
+                <i class="far fa-user"></i>
+            </button>
+            <div class="dropdown-content glass-effect">
+                <a href="pages/dashboard.html" class="dropdown-item">
+                    <i class="fas fa-columns"></i> Dashboard
+                </a>
+                <a href="pages/login.html" class="dropdown-item">
+                    <i class="fas fa-sign-in-alt"></i> Login/Register
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-history"></i> My Orders
+                </a>
+                <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 0.5rem 0;">
+                <a href="#" class="dropdown-item" style="color: #ef4444;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</header>

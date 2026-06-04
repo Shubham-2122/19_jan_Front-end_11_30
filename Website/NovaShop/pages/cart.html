@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart | NovaShop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+
+<body>
+
+    <header class="glass-effect scrolled">
+        <div class="logo">NovaShop</div>
+        <nav class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="products.html">Shop</a>
+        </nav>
+        <div class="nav-icons" style="gap: 2rem;">
+            <a href="../index.html" class="text-muted" style="font-size: 0.9rem;"><i class="fas fa-arrow-left"></i>
+                Continue Shopping</a>
+            <button class="icon-btn theme-toggle" onclick="DarkMode.toggle()"><i class="fas fa-moon"></i></button>
+            <div class="icon-btn" style="position: relative;">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="badge cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px;">
+        <div style="padding: 0 10% 2rem;">
+            <h1 class="fade-in-down">Shopping Cart</h1>
+            <p class="text-muted fade-in-down delay-1">Manage your selected premium items before checkout.</p>
+        </div>
+
+        <div class="cart-page-container">
+            <!-- Cart Items Grid (Left) -->
+            <div id="cart-items-container">
+                <!-- Dynamically loaded by cart.js -->
+            </div>
+
+            <!-- Order Summary (Right) -->
+            <div id="cart-summary-container">
+                <!-- Dynamically loaded by cart.js -->
+            </div>
+        </div>
+    </main>
+
+    <footer style="background: var(--dark-bg); color: white; padding: 5rem 10% 2rem; margin-top: 5rem;">
+        <div class="copyright" style="border: none; padding: 0;">
+            &copy; 2026 NovaShop. Secured with AES-256 Encryption.
+        </div>
+    </footer>
+
+    <script src="../js/darkmode.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/app.js"></script>
+</body>
+
+</html>

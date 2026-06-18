@@ -1,0 +1,18 @@
+Task 1
+Local Module user created
+Create:
+
+calculator.js
+add, multiply functions
+Task 2
+
+Create:
+
+student.js
+student data export
+Task 3
+
+Create:
+
+product.js
+product

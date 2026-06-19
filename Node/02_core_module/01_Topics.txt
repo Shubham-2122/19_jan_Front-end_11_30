@@ -1,0 +1,45 @@
+core module : node inbulit module use 
+
+
+1) fs : file system , create,read 
+2) os : opreater syatem 
+3) path : floder,file 
+4) http server
+
+// const http = require("http")
+
+// // console.log(http)
+
+// const server =  http.createServer((req,res)=>{
+//     // console.log(req.url,req.method)
+//     // console.log(res)
+//     res.write("welcome to first server page")
+//     res.end()
+// })
+
+// server.listen(5000)
+
+// console.log("server successfully run")
+
+Routes Handling 
+
+
+
+
+
+Practice Tasks
+Task 1
+
+Create file using fs module
+
+Task 2
+
+Read file using fs module
+
+Task 3
+
+Create basic server using http module
+
+Task 4
+
+Display system info using os module

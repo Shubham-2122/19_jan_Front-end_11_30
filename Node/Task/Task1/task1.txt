@@ -15,4 +15,6 @@ Task 3
 Create:
 
 product.js
-product
+product 
+
+How to Created

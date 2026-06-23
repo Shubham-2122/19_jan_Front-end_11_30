@@ -1,0 +1,47 @@
+SESSION 2 — Routing & Parameters in Node.js + Express
+
+
+Routing : 
+
+1) parmater :id/:name 
+
+1. Route Parameters
+
+How It Works
+Part	     Meaning
+:id	Dynamic  parameter
+req.params	  URL values લે છે
+
+2) query : product serach 
+2. Query Strings 
+
+Query string search/filter માટે use થાય છે
+?key=value
+
+
+
+Task :
+
+
+1. User Profile Route
+
+Social media apps માં user profile dynamic route થી open થાય.
+
+Example:
+
+Instagram : username
+Facebook : username
+
+
+2) Real-Time Example 1 — Product Details API
+
+E-commerce websites માં product ID થી product fetch થાય છે.
+
+Example:
+
+Amazon : Products id
+Flipkart
+
+3 ) Real-Time Example 2 — Movie Info Route
+
+Movie Name : name find

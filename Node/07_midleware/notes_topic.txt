@@ -1,0 +1,108 @@
+middwalre ware : important node 
+
+request and response :  
+
+
+Middleware Express નો સૌથી important concept છે.
+
+Real-time backend applications માં:
+
+Authentication
+Validation
+Logging
+Security
+Token checking
+
+બધું middleware થી થાય છે.
+
+Middleware શું છે?
+
+Middleware = Request અને Response ની વચ્ચે ચાલતું function
+
+Flow:
+
+Request → Middleware → Route → Response
+
+
+Simple Meaning
+
+User request આવે ત્યારે:
+
+1. પહેલા middleware run થાય next
+2. પછી route run થાય
+3. પછી response જાય
+
+
+next() શું છે?
+
+next() route તરફ control મોકલે છે.
+
+જો next() નહીં લખો તો request અટકી જશે.
+
+phela middleware called 
+pachi router page show thay
+
+
+Logger Middleware
+
+Logger requests track કરવા માટે use થાય છે.
+
+Real-time:
+
+Server monitoring
+API tracking
+Security logs
+
+2. body parse
+
+POST request માં data receive કરવા use થાય છે.
+
+Express 4.16+ પછી:
+
+Body Parser Middleware નો main કામ 👉
+POST request માંથી આવતો data વાંચવો (receive કરવો).
+
+Simple Meaning
+
+Client / Postman / Frontend data મોકલે:
+
+{
+  "name":"shubham",
+  "city":"ahmedabad"
+}
+
+આ data server સુધી આવે છે.
+પણ Express by default JSON data સમજી શકતું નથી.
+
+Wihtouit kraru undefined aavse
+app.use(express.json());
+
+આ middleware JSON data ને JavaScript object માં convert કરે છે.
+
+app.use(express.json());
+
+
+
+Student Practical Tasks
+Task 1 — Logger Middleware
+
+Print:
+
+method
+url
+time
+Task 2 — Auth Middleware
+
+Check login status.
+
+Task 3 — POST API
+
+Create user register API.
+
+Task 4 — Validation Middleware
+
+Check:
+
+name required
+email required
+

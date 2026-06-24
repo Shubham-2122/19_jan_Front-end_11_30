@@ -1,4 +1,6 @@
 const express = require("express")
+const studentRouter =require("./students")
+const movieRouter = require("./movies")
 
 const app =  express()
 // console.log("hello")
@@ -8,7 +10,8 @@ app.get("/",(req,res)=>{
     res.send("Home page")
     res.end()
 })
-
+app.use("/",studentRouter);
+app.use("/",movieRouter)
 
 // 1. Route Parameters
 
@@ -46,22 +49,22 @@ app.get("/",(req,res)=>{
 // })
 
 // multiple query
-app.get("/search",(req,res)=>{
-    console.log("url :",req.url," Method : ",req.method)
+// app.get("/search",(req,res)=>{
+//     console.log("url :",req.url," Method : ",req.method)
 
-    const productname = req.query.name;
-    const productcate = req.query.category;
+//     const productname = req.query.name;
+//     const productcate = req.query.category;
 
-    if(!productname  || !productcate){
-        console.log("err msg")
-        res.end("Not Data found")
-    }
-    else{
-        res.send("Product Name : "+productname+" Product category :"+productcate)
-    }
+//     if(!productname  || !productcate){
+//         console.log("err msg")
+//         res.end("Not Data found")
+//     }
+//     else{
+//         res.send("Product Name : "+productname+" Product category :"+productcate)
+//     }
 
     
-})
+// })
 
 app.listen(5000,()=>{
     console.log(`server Runing : http://localhost:5000`)

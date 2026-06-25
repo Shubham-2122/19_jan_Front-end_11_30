@@ -1,0 +1,156 @@
+SESSION 4 — MVC Structure in Node.js + Express
+
+MVC backend development નું industry standard architecture છે.
+
+Used in:
+
+Netflix
+Amazon
+Flipkart
+
+MVC શું છે?
+MVC =
+
+Letter	Meaning
+M	    Model
+V	    View
+C	    Controller
+
+Simple      Meaning
+Part	    Work
+Model	    Database handle કરે
+View	    Frontend/UI
+Controller	Logic handle કરે
+
+Node.js backend માં mostly:
+
+Routes
+Controllers
+Models
+
+આ structure use થાય છે.
+
+MVC કેમ Important?
+
+Without MVC:
+
+❌ બધું code app.js માં આવે
+❌ Project messy બને
+❌ Large project manage મુશ્કેલ
+
+MVC પછી:
+
+✅ Clean code
+✅ Easy maintenance
+✅ Team work easy
+✅ Reusable code
+✅ Professional structure
+
+
+Basic MVC Folder Structure
+project/
+│
+├── controllers/
+├── routes/
+├── models/
+├── app.js
+
+Real-Time Structure
+project/
+│
+├── controllers/
+│      ├── userController.js
+│      ├── productController.js
+│
+├── routes/
+│      ├── userRoutes.js
+│      ├── productRoutes.js
+│
+├── models/
+│      ├── userModel.js
+│      ├── productModel.js
+│
+├── middleware/
+│
+├── app.js
+
+
+STEP 5 — Create Controller
+controllers/userController.js
+const getUsers = (req, res) => {
+
+    res.send("All Users");
+
+};
+
+module.exports = {
+    getUsers
+};
+
+
+Controller શું કરે?
+
+Controller business logic handle કરે.
+
+Examples:
+
+User data
+Product logic
+Login logic
+API response
+
+
+STEP 6 — Create Routes
+routes/userRoutes.js
+const express = require("express");
+
+const router = express.Router();
+
+const userController = require("../controllers/userController");
+
+router.get("/", userController.getUsers);
+
+module.exports = router;
+
+router શું છે?
+express.Router()
+
+Mini Express app જે routes manage કરે.
+
+
+Full Request Flow
+Request
+   ↓
+Route
+   ↓
+Controller
+   ↓
+Response
+
+Student Practical Tasks
+Task 1
+
+Create:
+
+userController
+userRoutes
+Task 2
+
+Create Product API:
+
+GET product
+POST product
+Task 3
+
+Create Auth API:
+
+login
+register
+Task 4
+
+Build Employee Management API
+
+Routes:
+
+/employees
+/employees/add

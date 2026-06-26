@@ -1,0 +1,6 @@
+REST API : Application programing intgerface
+
+Front-end / back-end ni comunication 
+front-end clinet request send post ,get 
+back-end sever response gep,post,delete,upadate
+

@@ -1,0 +1,564 @@
+ESSION 2 — CRUD + MongoDB Integration
+
+Node.js + Express + MongoDB + Mongoose
+
+આ SESSION માં શીખીશું:
+
+✅ MongoDB Introduction
+✅ Mongoose
+✅ Database Connection
+✅ Schema Design
+✅ CRUD Operations
+✅ MVC Structure
+✅ Real-Time Product API
+
+Used in:
+
+Amazon
+Flipkart
+Netflix
+MongoDB શું છે?
+
+MongoDB એક NoSQL Database છે.
+
+Data JSON જેવી format માં store થાય છે.
+
+Example:
+
+{
+   "name":"Laptop",
+   "price":50000
+}
+SQL vs MongoDB
+SQL	MongoDB
+Tables	Collections
+Rows	Documents
+Fixed Schema	Flexible Schema
+Mongoose શું છે?
+
+Mongoose Node.js અને MongoDB વચ્ચે bridge છે.
+
+Used for:
+
+Schema create
+Validation
+CRUD
+Database operations 
+
+MongoDB Compass શું છે?
+
+MongoDB Compass એ MongoDB માટેનું GUI (Graphical User Interface) Tool છે.
+તેની મદદથી તમે:
+
+Database જોઈ શકો
+Collections બનાવી શકો
+Data Insert / Update / Delete કરી શકો
+Query Run કરી શકો
+Coding વગર MongoDB Manage કરી શકો
+STEP 1 — MongoDB Community Server Download
+Official Website
+
+MongoDB Community Server Download
+
+STEP 2 — MongoDB Compass Download
+Official Download Page
+
+MongoDB Compass Download
+
+Windows માં MongoDB Compass Install Step by Step
+1️⃣ Website Open કરો
+
+ઉપર આપેલી MongoDB Compass link open કરો.
+
+2️⃣ Version Select કરો
+
+Normally Auto Detect થઈ જાય:
+
+OS → Windows
+Package → .msi
+
+પછી:
+
+✅ Click → Download
+
+3️⃣ Download થયેલ File Open કરો
+
+Example:
+
+mongodb-compass-xxxx.msi
+
+Double Click કરો.
+
+4️⃣ Install Wizard
+
+Next → Next → Install
+
+થોડા seconds પછી install થઈ જશે.
+
+5️⃣ Finish
+
+Finish Button Click કરો.
+
+હવે Compass Open થશે.
+
+STEP 3 — MongoDB Server Start કરવું
+
+MongoDB Compass use કરતા પહેલા MongoDB Server install હોવું જોઈએ.
+
+Install થયા પછી Windows Service Automatically start થાય છે.
+
+Check કરવા:
+
+CMD Open કરો
+mongod --version
+
+જો version આવે → MongoDB properly install છે.
+
+STEP 4 — MongoDB Compass Connect કરવું
+
+Compass Open કરો.
+
+તમે આ screen જોશો:
+
+mongodb://localhost:27017
+
+આને Connection String કહે છે.
+
+
+Important MongoDB Terms
+Term	      Meaning
+Database	   Main Storage
+Collection	Table જેવી
+Document	   Row જેવી
+Field	      Column જેવી
+
+
+Step by Step Fix (Windows)
+STEP 1 — Check MongoDB Installed છે કે નહીં
+
+આ folder check કરો:
+
+C:\Program Files\MongoDB\Server\
+
+અંદર version folder હશે.
+
+Example:
+
+8.0
+STEP 2 — bin Folder Open કરો
+
+Path આવું હશે:
+
+C:\Program Files\MongoDB\Server\8.0\bin
+
+અંદર આ files હોવી જોઈએ:
+
+mongod.exe
+mongosh.exe
+
+જો છે → MongoDB installed છે ✅
+
+STEP 3 — PATH Variable Add કરો
+Windows Search માં લખો:
+Environment Variables
+
+Open કરો:
+
+Edit the system environment variables
+Click:
+Environment Variables
+System Variables માં:
+
+Select:
+Path
+
+Click:
+
+Edit
+Click:
+New
+
+Paste કરો:
+
+C:\Program Files\MongoDB\Server\8.0\bin
+
+⚠️ તમારું version અલગ હોઈ શકે.
+
+Click:
+OK → OK → OK
+
+
+Databse connect karva mate install karvu pade
+
+npm install mongoose
+
+
+STEP 5 — Final MVC Structure
+project/
+│
+├── config/
+│      └── db.js
+│
+├── models/
+│      └── Product.js
+│
+├── controllers/
+│      └── productController.js
+│
+├── routes/
+│      └── productRoutes.js
+│
+├── app.js
+STEP 6 — MongoDB Connection
+config/db.js
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/ecommerce")
+
+.then(() => console.log("DB Connected"))
+
+.catch((err) => console.log(err));
+
+
+mongodb://127.0.0.1:27017/ecommerce
+
+Part	         Meaning
+127.0.0.1	   Localhost
+27017	         MongoDB Port
+ecommerce	   Database Name
+
+
+
+STEP 7 — Create Product Schema
+models/Product.js
+const mongoose = require("mongoose");
+
+const productSchema = new mongoose.Schema({
+
+    name: String,
+
+    price: Number,
+
+    category: String
+
+});
+
+module.exports = mongoose.model("Product", productSchema);
+Schema શું છે?
+
+Schema database structure define કરે છે.
+
+Example:
+
+Field	      Type
+name	      String
+price	      Number
+category	   String
+
+model schema done after
+
+controllers /studentControllers.js
+const Product = require("../models/Product");
+
+
+// CREATE PRODUCT
+const createProduct = async (req, res) => {
+
+    try {
+
+        const product = await Product.create(req.body);
+
+        res.status(201).json(product);
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
+
+// GET ALL PRODUCTS
+const getProducts = async (req, res) => {
+
+    try {
+
+        const data = await Product.find();
+
+        res.status(200).json(data);
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
+
+// GET SINGLE PRODUCT
+const getProductById = async (req, res) => {
+
+    try {
+
+        const product = await Product.findById(req.params.id);
+
+        res.status(200).json(product);
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
+
+// UPDATE PRODUCT
+const updateProduct = async (req, res) => {
+
+    try {
+
+        await Product.findByIdAndUpdate(
+
+            req.params.id,
+            req.body
+
+        );
+
+        res.json({
+
+            message: "Updated"
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
+
+// DELETE PRODUCT
+const deleteProduct = async (req, res) => {
+
+    try {
+
+        await Product.findByIdAndDelete(req.params.id);
+
+        res.json({
+
+            message: "Deleted"
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
+module.exports = {
+
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct
+};
+
+Routes Created productRoutes.js
+const express = require("express");
+
+const router = express.Router();
+
+const productController = require("../controllers/productController");
+
+
+// CREATE
+router.post("/", productController.createProduct);
+
+
+// READ ALL
+router.get("/", productController.getProducts);
+
+
+// READ SINGLE
+router.get("/:id", productController.getProductById);
+
+
+// UPDATE
+router.put("/:id", productController.updateProduct);
+
+
+// DELETE
+router.delete("/:id", productController.deleteProduct);
+
+
+module.exports = router;
+
+
+app.js
+const express = require("express");
+
+const app = express();
+
+require("./config/db");
+
+app.use(express.json());
+
+const productRoutes = require("./routes/productRoutes");
+
+app.use("/products", productRoutes);
+
+app.listen(5000, () => {
+
+    console.log("Server Running");
+
+});
+
+post : http://localhost:3000/products
+{
+    "name":"Laptop",
+   "price":50000,
+   "category":"Electronics"
+}
+
+get : localhost:3000/products
+
+put : localhost:3000/products/PRODUCT_ID
+
+delete : localhost:3000/products/PRODUCT_ID
+
+
+Real-Time Request Flow
+Client Request
+      ↓
+Routes
+      ↓
+Controller
+      ↓
+Mongoose
+      ↓
+MongoDB
+      ↓
+Response
+CRUD Operations
+Operation	   Mongoose Method
+Create	      create()
+Read	         find()
+Single Read	   findById()
+Update      	findByIdAndUpdate()
+Delete      	findByIdAndDelete()
+
+
+Real-Time         Practical Examples
+Project	         APIs
+E-commerce	      Product CRUD
+College ERP	      Student CRUD
+HRMS	Employee    CRUD
+OTT Platform	   Movie CRUD
+
+
+Student Practice Tasks
+Task 1 — Employee CRUD
+
+Fields:
+
+name
+salary
+department
+Task 2 — Notes CRUD
+
+Fields:
+
+title
+description
+Task 3 — Movie Database
+
+Fields:
+
+movieName
+rating
+category
+Task 4 — Course Management API
+
+Fields:
+
+courseName
+fees
+duration
+Important Interview Questions
+What is Mongoose?
+
+Mongoose is an ODM library for MongoDB and Node.js.
+
+What is Schema?
+
+Schema defines structure of MongoDB documents.
+
+Why MongoDB Popular?
+
+MongoDB is flexible, scalable, and stores JSON-like documents.
+
+
+
+const categoryFind =async(req,res)=>{
+    try {
+        
+        const category = req.query.category
+        const product = await Product.find({category})
+
+        res.status(200).json(product)
+        
+    } catch (error) {
+           res.status(500).json({
+            message: error.message,
+        });
+    }
+}
+
+
+
+// new Data
+route.post("/",createproduct)
+
+// category
+route.get("/search",categoryFind);
+
+// get id single product
+route.get("/:id",ProductId);
+
+// get all data
+route.get("/",getALLproduct)
+
+// delete
+route.delete("/:id",deleteProduct);
+
+// update
+route.put("/:id",updateproduct);

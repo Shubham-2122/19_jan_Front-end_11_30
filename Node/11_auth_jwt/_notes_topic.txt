@@ -1,0 +1,558 @@
+SESSION 3 — Authentication (JWT)
+
+Node.js + Express + MongoDB + JWT + bcryptjs
+
+આ SESSION માં શીખીશું:
+
+✅ Authentication
+✅ JWT Token
+✅ Register API
+✅ Login API
+✅ Password Hashing
+✅ Protected Routes
+✅ Auth Middleware
+✅ Real-Time Login System
+
+Used in:
+
+Instagram
+Facebook
+Amazon
+Authentication શું છે?
+
+Authentication એટલે:
+
+User સાચો છે કે નહીં?
+
+Example:
+
+Login system
+Admin panel
+Banking apps
+Protected APIs
+JWT શું છે?
+
+JWT = JSON Web Token
+
+User login પછી server token આપે છે.
+
+પછી user દરેક request માં token મોકલે છે.
+
+Real-Time JWT Flow
+Login
+   ↓
+Server Verify User
+   ↓
+JWT Token Generate
+   ↓
+Client Save Token
+   ↓
+Protected API Access
+bcryptjs શું છે?
+
+Password hashing માટે use થાય છે.
+
+Why Password Hashing?
+
+Wrong:
+
+123456
+
+Correct:
+
+$2a$10$kdhfksjdfh...
+
+Database માં original password save નથી થતો.
+
+create floder 
+npm init -y
+npm i express nodemon mongoose 
+npm i jsonwebtoken bcryptjs
+
+
+Packages Use
+Package	        Work
+express	        Server
+mongoose	    MongoDB
+jsonwebtoken	JWT
+bcryptjs	    Password Hash
+
+
+
+Final MVC Structure
+project/
+│
+├── config/
+│      └── db.js
+│
+├── models/
+│      └── User.js
+│
+├── controllers/
+│      └── authController.js
+│
+├── middleware/
+│      └── authMiddleware.js
+│
+├── routes/
+│      └── authRoutes.js
+│
+├── app.js
+STEP 4 — MongoDB Connection
+config/db.js
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/authsystem")
+
+.then(() => console.log("DB Connected"))
+
+.catch((err) => console.log(err));
+STEP 5 — Create User Model
+models/User.js
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+
+    name: String,
+
+    email: String,
+
+    password: String
+
+});
+
+module.exports = mongoose.model("User", userSchema);
+
+STEP 6 — Create Auth Controller
+controllers/authController.js
+const User = require("../models/User");
+
+const bcrypt = require("bcryptjs");
+
+const jwt = require("jsonwebtoken");
+
+
+// REGISTER
+const register = async (req, res) => {
+
+    try {
+
+        const { name, email, password } = req.body;
+
+        // HASH PASSWORD
+        const hashPassword = await bcrypt.hash(password, 10);
+
+        // SAVE USER
+        const user = await User.create({
+
+            name,
+            email,
+            password: hashPassword
+
+        });
+
+        res.status(201).json({
+
+            message: "User Registered",
+            user
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
+
+// LOGIN
+const login = async (req, res) => {
+
+    try {
+
+        const { email, password } = req.body;
+
+        // FIND USER
+        const user = await User.findOne({ email });
+
+        if(!user){
+
+            return res.status(404).json({
+
+                message: "User Not Found"
+
+            });
+
+        }
+
+        // COMPARE PASSWORD
+        const isMatch = await bcrypt.compare(
+
+            password,
+            user.password
+
+        );
+
+        if(!isMatch){
+
+            return res.status(400).json({
+
+                message: "Invalid Password"
+
+            });
+
+        }
+
+        // GENERATE TOKEN
+        const token = jwt.sign(
+
+            { id: user._id },
+
+            "secretkey",
+
+            { expiresIn: "1d" }
+
+        );
+
+        res.status(200).json({
+
+            message: "Login Success",
+
+            token
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+    }
+};
+module.exports = {
+
+    register,
+    login
+
+};
+
+
+bcrypt.hash()
+bcrypt.hash(password, 10)
+
+Password secure બનાવે છે.
+
+bcrypt.compare()
+bcrypt.compare(password, user.password)
+
+Login સમયે password check કરે છે.
+
+jwt.sign()
+jwt.sign(payload, secretkey, options)
+
+JWT token generate કરે છે
+
+const jwt = require("jsonwebtoken");
+
+const verifyToken = (req, res, next) => {
+
+    const token = req.headers.authorization;
+
+    if(!token){
+
+        return res.status(401).json({
+
+            message: "Token Missing"
+
+        });
+
+    }
+
+    try {
+
+        const verify = jwt.verify(
+
+            token,
+            "secretkey"
+        );
+
+        req.user = verify;
+
+        next();
+
+    } catch (error) {
+
+        res.status(401).json({
+
+            message: "Invalid Token"
+
+        });
+
+    }
+
+};
+
+module.exports = verifyToken;
+
+verifyToken શું કરે?
+
+✅ Token check
+✅ Token valid છે કે નહીં check
+✅ Protected routes secure કરે
+
+app.js
+// console.log("hello")
+
+const express = require("express")
+
+const app = express()
+require("./config/db")
+
+app.use(express.json());
+const userRoute = require("./router/userRoute")
+
+app.use("/auth",userRoute)
+
+app.listen(5000,()=>{
+    console.log(`server Runing : http://localhost:5000`)
+})
+
+
+REGISTER API
+URL
+POST localhost:3000/auth/register
+JSON
+{
+   "name":"shubham",
+   "email":"test@gmail.com",
+   "password":"123456"
+}
+LOGIN API
+URL
+POST localhost:3000/auth/login
+JSON
+{
+   "email":"test@gmail.com",
+   "password":"123456"
+}
+Login Response
+{
+   "message":"Login Success",
+   "token":"JWT_TOKEN"
+}
+Protected Route
+URL
+GET localhost:3000/auth/dashboard
+Authorization Header
+authorization : JWT_TOKEN
+
+
+Real-Time Flow
+Register
+   ↓
+Password Hash
+   ↓
+MongoDB Save
+   ↓
+Login
+   ↓
+Password Compare
+   ↓
+JWT Generate
+   ↓
+Protected Route Access
+Important Status Codes
+Code	Meaning
+200	    Success
+201	    Created
+401	    Unauthorized
+404	    Not Found
+500 	Server Error
+
+Real-Time Example
+Feature	        Example
+Login System	Social Media
+JWT Auth	    Banking Apps
+Protected APIs	Admin Panel
+Password Hash	Secure Login
+
+
+
+Important Interview Questions
+What is JWT?
+
+JWT is a token-based authentication system.
+
+Why bcryptjs Used?
+
+bcryptjs securely hashes passwords.
+
+Why Protected Routes?
+
+Protected routes prevent unauthorized access.
+
+Student Practice Tasks
+Task 1
+
+Add:
+
+confirmPassword
+Task 2
+
+Create:
+
+Admin Login
+Task 3
+
+Protect:
+
+Product API
+Task 4
+
+Add:
+
+User Profile API
+
+
+
+
+હા ✅
+આ બિલકુલ correct behavior છે.
+
+જો તમે:
+
+GET /auth/dashboard
+
+route access કરો અને token મોકલ્યો નથી તો:
+
+{
+   "message":"Token Missing"
+}
+
+આવવું જોઈએ.
+
+કારણ કે dashboard route protected છે.
+
+Flow Proper સમજીએ
+STEP 1 — Register
+POST /auth/register
+
+User create થાય.
+
+STEP 2 — Login
+POST /auth/login
+
+જો email/password correct હોય તો response આવશે:
+
+{
+   "message":"Login Success",
+   "token":"eyJhbGciOiJIUzI1NiIs..."
+}
+STEP 3 — Copy Token
+
+આ token copy કરવો.
+
+Example:
+
+eyJhbGciOiJIUzI1NiIs...
+STEP 4 — Dashboard Route Access
+GET /auth/dashboard
+
+પણ હવે request માં token મોકલવો જરૂરી છે.
+
+Postman માં Token કેવી રીતે મોકલવો?
+Headers માં add કરો
+Key	Value
+authorization	JWT_TOKEN
+Example
+authorization:
+eyJhbGciOiJIUzI1NiIs...
+પછી Response આવશે
+{
+   "message":"Protected Data",
+   "user":{
+      "id":"6877shshsh"
+   }
+}
+Why Token Missing આવે?
+
+આ middleware જુઓ:
+
+const token = req.headers.authorization;
+
+અહીં Express request headers માંથી token શોધે છે.
+
+જો token નથી તો:
+
+if(!token)
+
+condition true થાય.
+
+અને:
+
+{
+   "message":"Token Missing"
+}
+
+return થાય.
+
+Real-Time Example
+
+Used in:
+
+Instagram
+Facebook
+Amazon
+
+બધી apps:
+
+login પછી token આપે
+પછી દરેક protected API માં token મોકલવો પડે
+Important
+Login વગર dashboard access?
+
+❌ Not Allowed
+
+Token valid હોય તો?
+
+✅ Access Allowed
+
+Token wrong હોય તો?
+{
+   "message":"Invalid Token"
+}
+Real JWT Flow
+Login
+   ↓
+Token Generate
+   ↓
+Client Save Token
+   ↓
+Token Send in Header
+   ↓
+Middleware Verify
+   ↓
+Protected Route Access
+Best Practice
+
+Mostly production માં:
+
+Authorization: Bearer TOKEN
+
+format use થાય છે.
+
+પણ હાલમાં simple learning માટે:
+
+authorization : TOKEN
+
+enough છે.
+
+

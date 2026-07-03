@@ -1,0 +1,718 @@
+Full JWT Auth Project With .env + Admin Dashboard + Order API
+
+Node.js + Express + MongoDB + JWT + MVC
+
+આ project માં શીખીશું:
+
+✅ .env File
+✅ MongoDB Connection
+✅ User Authentication
+✅ Admin Dashboard API
+✅ Product API Protection
+✅ Order API
+✅ User Profile API
+✅ Role Based Access
+✅ MVC Structure
+
+Used in:
+
+Amazon
+Flipkart
+Netflix
+STEP 1 — MongoDB Compass માં Database
+
+તમે manually database Compass માં create કરી શકો.
+
+Example:
+
+authpractice
+
+પણ collection automatic create થશે જ્યારે first insert થશે.
+
+STEP 2 — Create Project
+
+CMD:
+
+mkdir full-auth-project
+cd full-auth-project
+STEP 3 — Install Packages
+npm init -y
+npm install express mongoose bcryptjs jsonwebtoken dotenv
+dotenv કેમ use કરીએ?
+
+Sensitive data hide કરવા.
+
+Example:
+
+✅ MongoDB URL
+✅ JWT Secret
+✅ PORT
+
+STEP 4 — Final Project Structure
+project/
+│
+├── config/
+│      └── db.js
+│
+├── models/
+│      ├── User.js
+│      ├── Product.js
+│      └── Order.js
+│
+├── controllers/
+│      ├── authController.js
+│      ├── productController.js
+│      └── orderController.js
+│
+├── middleware/
+│      ├── authMiddleware.js
+│      └── adminMiddleware.js
+│
+├── routes/
+│      ├── authRoutes.js
+│      ├── productRoutes.js
+│      └── orderRoutes.js
+│
+├── .env
+├── app.js
+
+STEP 5 — Create .env
+.env
+PORT=3000
+
+MONGO_URL=mongodb://127.0.0.1:27017/authpractice
+
+JWT_SECRET=mysupersecretkey
+
+
+npm install express mongoose bcryptjs jsonwebtoken dotenv
+
+STEP-6 - MongoDB Connection
+
+config/db.js
+const mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGO_URL)
+
+.then(() => {
+
+    console.log("DB Connected");
+
+})
+
+.catch((err) => {
+
+    console.log(err);
+
+});
+process.env શું છે?
+
+.env file ના values access કરવા.
+
+Example:
+process.env.JWT_SECRET
+process.env.MONGO_URL
+
+step 7 - Model User
+user.js
+
+models/User.js
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+
+    name: String,
+
+    email: String,
+
+    password: String,
+
+    role: {
+
+        type: String,
+
+        default: "user"
+
+    }
+
+});
+
+module.exports = mongoose.model("User", userSchema);
+
+step-8 Product model
+const mongoose = require("mongoose");
+
+const productSchema = new mongoose.Schema({
+
+    name: String,
+
+    price: Number,
+
+    category: String
+
+});
+
+module.exports = mongoose.model("Product", productSchema);
+
+STEP 9 — Order Model
+models/Order.js
+const mongoose = require("mongoose");
+
+const orderSchema = new mongoose.Schema({
+
+    productName: String,
+
+    quantity: Number,
+
+    totalPrice: Number
+
+});
+
+module.exports = mongoose.model("Order", orderSchema);
+
+
+step 10 : controllers / authController.js
+const User = require("../models/User");
+
+const bcrypt = require("bcryptjs");
+
+const jwt = require("jsonwebtoken");
+
+// register
+
+const register = async (req, res) => {
+  try {
+    const { name, email, password, confirmPassword, role } = req.body;
+
+    // email validation
+    const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailpattern.test(email)) {
+      return res.status(400).json({
+        message: "Invalid Email",
+      });
+    }
+
+    // password check
+    if (password != confirmPassword) {
+      return res.status(400).json({
+        message: "Password Not Match",
+      });
+    }
+
+    // chec user
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "Email Already Exists",
+      });
+    }
+
+    // hash password
+
+    const hashPassword = await bcrypt.hash( password,10)
+    // creatae user
+    const user = await User.create({
+      name,
+      email,
+      password: hashPassword,
+      role,
+    });
+        res.status(201).json({
+            message: "User Registered"
+        });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+const login =async(req,res)=>{
+    try {
+        const {email,password} = req.body;
+
+        const user = await User.findOne({email})
+
+        if(!user){
+            return res.status(404).json({
+                message: "User Not Found"
+            });
+
+        }
+
+        // comapre password
+
+        const isMatch = await bcrypt.compare(
+            password,
+            user.password
+        )
+
+        if(!isMatch){
+            return res.status(400).json({
+                message: "Invalid Password"
+            });
+        }
+
+        // Token 
+        const token = jwt.sign(
+            {
+                id:user._id,
+                role:user.role
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn : "1d"
+            }
+        );
+        res.status(200).json({
+            message: "Login Success",
+            token
+        });
+        
+    } catch (error) {
+         res.status(201).json({
+            message: "User Registered"
+        });
+    }
+}
+
+module.exports = {
+    register,
+    login
+}
+
+
+step : 11 auth
+
+middleware : authMiddleware.js
+
+const jwt =  require("jsonwebtoken")
+
+const verifyToken = (req,res,next)=>{
+    const token = req.headers.authorization
+
+    if(!token){
+        return res.status(401).json({
+             message: "Token Missing"
+        })
+    }
+     try {
+
+        const verify = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        )
+
+        req.user = verify;
+        next();
+        
+     } catch (error) {
+        res.status(401).json({
+            message: "Invalid Token"
+        });
+     }
+}
+
+module.exports = verifyToken
+
+step : 12 adminMiddleware
+
+const adminMiddleware = (req,res,next)=>{
+    if(req.user.role !== "admin"){
+        return res.status(403).json({
+            message: "Admin Access Only"
+        })
+    }
+    next();
+}
+
+module.exports = adminMiddleware;
+
+STEP 13 — Product Controller
+
+const Product = require("../models/Product")
+
+const createProduct = async(req,res)=>{
+    const product =await Product.create(req.body);
+
+    res.status(201).json({
+        message: "Product Added",
+        product
+    });
+}
+
+// get product
+
+const getProducts = async(req,res)=>{
+    const products = await Product.find();
+    res.json(products)
+}
+
+module.exports = {
+    getProducts,
+    createProduct
+}
+ 
+STEP - 14  order controllers
+const Order = require("../models/Order")
+
+// create order
+
+const createOrder = async(req,res)=>{
+    const order = await Order.create(req.body)
+
+     res.status(201).json({
+        message: "Order Created",
+        order
+    });
+    
+}
+
+const getOrders = async (req, res) => {
+    const orders = await Order.find();
+    res.status(200).json(orders);
+};
+
+module.exports = {
+    createOrder,
+    getOrders
+
+}
+
+
+
+STEP - 15 authRoute.js
+const express = require("express")
+
+const router = express.Router()
+
+const {register,login} = require("../controllers/authControllers");
+
+const verifyToken = require("../middleware/authMiddleware");
+
+const adminMiddleware = require("../middleware/adminMiddleware");
+
+
+router.post("/register",register)
+
+// login
+
+router.post("/login",login)
+
+// user profile
+router.get(
+    "/profile",
+    verifyToken,
+    (req,res)=>{
+        res.json({
+            user: req.user
+        })
+    }
+)
+
+// admin router
+
+router.get(
+    "admin-dashbaord",
+    verifyToken,
+    adminMiddleware,
+    (req,res)=>{
+        res.json({
+            message: "Welcome Admin"
+        })
+    }
+)
+
+module.exports = router;
+
+STEP- 16 productRouter
+
+const express = require("express")
+
+const router = express.Router()
+
+const {createProduct,getProducts} = require("../controllers/productControllers")
+
+const verifyToken = require("../middleware/authMiddleware")
+
+const adminMiddleware = require("../middleware/adminMiddleware")
+
+// admin product create
+
+router.post(
+    "/",
+    verifyToken,
+    adminMiddleware,
+    createProduct
+)
+
+router.get("/",getProducts)
+
+module.exports = router
+
+STEP - 17 Order routes
+
+const express= require("express")
+
+const router = express.Router()
+
+const {createOrder,getOrders} = require("../controllers/orderControllers") 
+
+const verifyToken = require("../middleware/authMiddleware")
+
+// create Order 
+router.post(
+    "/",
+    verifyToken,
+    createOrder
+)
+
+// get
+router.get(
+    "/",
+    verifyToken,
+    getOrders
+)
+
+module.exports = router
+
+STEP - 18 : app.js
+
+// console.log("hello")
+const express = require("express")
+
+const dotenv = require("dotenv")
+
+dotenv.config();
+
+const app = express();
+
+// database connect msg
+require("./config/db");
+
+app.use(express.json())
+const authRoutes = require("./routes/AuthRoutes")
+const productRoutes =  require("./routes/productRoutes")
+const orderRoutes = require("./routes/orderRoutes")
+
+// app route
+app.use("/auth",authRoutes);
+app.use("/products",productRoutes)
+app.use("/orders",orderRoutes)
+
+app.listen(process.env.PORT,()=>{
+    console.log(`server runig : http://localhost:5000`)
+})
+
+
+inal Flow
+Register
+   ↓
+Hash Password
+   ↓
+MongoDB Save
+   ↓
+Login
+   ↓
+JWT Token
+   ↓
+Middleware Verify
+   ↓
+Protected APIs
+APIsSummary
+API	                Access
+Register	        Public
+Login	            Public
+Profile	            Login User
+Admin Dashboard	    Admin Only
+Product Create	    Admin Only
+Orders	            Login User
+
+
+
+
+
+
+
+
+
+
+
+
+
+Run step by after code sucessfully 
+STEP 1 — MongoDB Start કરો
+
+જો MongoDB Compass use કરો છો:
+
+✅ Compass open કરો
+✅ connection connect કરો:
+
+mongodb://127.0.0.1:27017
+STEP 2 — Terminal Open
+
+Project folder માં CMD open કરો.
+
+Example:
+
+14_Role_base_auth
+STEP 3 — Run Server
+
+CMD:
+
+nodemon app.js
+
+જો nodemon install ના હોય:
+
+node app.js
+STEP 4 — Successful Output
+
+તમને આ output આવશે:
+
+DB Connected
+Server Running
+STEP 5 — API Testing
+
+Use:
+
+Postman Official Website
+Thunder Client VS Code Extension
+STEP 6 — Register User
+Method
+POST
+URL
+http://localhost:3000/auth/register
+Body → JSON
+{
+   "name":"shubham",
+   "email":"admin@gmail.com",
+   "password":"123456",
+   "confirmPassword":"123456",
+   "role":"admin"
+}
+Expected Response
+{
+   "message":"User Registered"
+}
+STEP 7 — Login User
+Method
+POST
+URL
+http://localhost:3000/auth/login
+Body JSON
+{
+   "email":"admin@gmail.com",
+   "password":"123456"
+}
+Login Response
+{
+   "message":"Login Success",
+   "token":"eyJhbGciOiJIUzI1Ni..."
+}
+IMPORTANT
+
+આ token copy કરો.
+
+STEP 8 — Product Create API
+Method
+POST
+URL
+http://localhost:3000/products
+Headers
+authorization : YOUR_TOKEN
+Body JSON
+{
+   "name":"Laptop",
+   "price":50000,
+   "category":"Electronics"
+}
+Expected Response
+{
+   "message":"Product Added"
+}
+STEP 9 — Get Products
+Method
+GET
+URL
+http://localhost:3000/products
+STEP 10 — User Profile API
+Method
+GET
+URL
+http://localhost:3000/auth/profile
+Header
+authorization : YOUR_TOKEN
+STEP 11 — Admin Dashboard API
+URL
+http://localhost:3000/auth/admin-dashboard
+STEP 12 — Order API
+Create Order
+Method
+POST
+URL
+http://localhost:3000/orders
+Header
+authorization : YOUR_TOKEN
+Body JSON
+{
+   "productName":"Laptop",
+   "quantity":2,
+   "totalPrice":100000
+}
+MongoDB Compass માં Data કેવી રીતે જોવા?
+
+Compass માં:
+
+authpractice
+
+database open કરો.
+
+પછી:
+
+users
+products
+orders
+
+collections દેખાશે.
+
+Real Flow
+Register
+   ↓
+MongoDB Save
+   ↓
+Login
+   ↓
+JWT Token
+   ↓
+Protected APIs Access
+Important
+Server Stop
+
+CMD:
+
+ctrl + c
+
+
+
+
+Next Learn
+
+હવે તમે ready છો:
+
+✅ Full CRUD
+✅ JWT Auth
+✅ MongoDB
+✅ MVC
+✅ Protected APIs
+✅ Role Based Auth
+
+Next:
+
+File Upload
+OTP Login
+Nodemailer
+Cloudinary
+Full Ecommerce Backend
+MERN Stack Integration

@@ -1,0 +1,363 @@
+SESSION 4 — File Uploads & Validation (Gujarati Notes)
+📌 Session Goal
+
+આ Session માં તમે શીખશો:
+
+File Upload કેવી રીતે કરવું
+multer package નો ઉપયોગ
+Image Upload API
+Validation Middleware
+Global Error Handling
+Static Folder Serve કરવું
+Real-Time Ecommerce Backend Structure
+1️⃣ Multer શું છે?
+
+multer એ Node.js middleware છે જે:
+
+✅ Images Upload કરે
+✅ Files Save કરે
+✅ Form-data Handle કરે
+
+Mostly ઉપયોગ થાય:
+
+Profile Image Upload
+Product Image
+Blog Thumbnail
+Resume Upload
+
+npm i multer 
+npm i express 
+
+2️⃣ Multer Install કરવું
+
+Terminal માં command ચલાવો:
+
+npm install multer
+3️⃣ Project Structure
+project/
+│
+├── controllers/
+├── routes/
+├── middleware/
+├── uploads/
+├── app.js
+4️⃣ Basic Express Setup
+
+
+app.js
+
+console.log("Hello shubham")
+const express = require("express")
+
+const app = express()
+
+app.use(express.json())
+
+app.listen(5000,()=>{
+    console.log(`server Runing : http://localhost:5000`)
+})
+
+
+6️⃣ Multer Setup Step By Step
+middleware/upload.js
+const multer = require("multer")
+
+const storage = multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,"uploads/");
+    },
+    filename:(req,file,cb)=>{
+        cb(null,Date.now() + "-" + file.originalname)
+    }
+});
+
+const upload = multer({
+    storage:storage
+})
+module.exports = upload
+
+
+7️⃣ Upload API બનાવો
+routes/uploadRoutes.js
+
+const express = require("express")
+
+const route = express.Router();
+
+const upload = require("../middleware/upload")
+
+route.post(
+    "upload",
+    upload.single("image"),
+    (req,res)=>{
+        res.json({
+            message : "File Uploaded",
+            file:req.file
+        });
+    }
+)
+
+module.exports = route;
+
+app.js
+
+const uploadRoute = require("./routes/uploadRoute")
+
+app.use(express.json())
+
+app.use("/api",uploadRoute)
+
+9️⃣ Postman માં Testing
+Method
+POST
+URL
+http://localhost:5000/api/upload
+Body → form-data
+KEY	TYPE
+image	File
+
+Image Select કરો → Send કરો
+
+🔟 Response Example
+{
+  "message": "File Uploaded",
+  "file": {
+    "filename": "1720000-photo.jpg"
+  }
+}
+
+1️⃣1️⃣ Static Folder Serve કરવું
+
+Image Browser માં જોવા માટે:
+
+Important chce aa
+app.js
+app.use("/uploads", express.static("uploads"));
+
+
+Browser URL
+http://localhost:5000/uploads/filename.jpg
+
+
+1️⃣2️⃣ Validation Middleware
+middleware/validateProduct.js
+const validateProduct = (req, res, next) => {
+
+    const { name, price } = req.body;
+
+    if (!name || !price) {
+
+        return res.status(400).json({
+            message: "All fields required"
+        });
+
+    }
+
+    next();
+
+};
+
+module.exports = validateProduct;
+1️⃣3️⃣ Validation Use કરવું
+routes/productRoutes.js
+const express = require("express");
+
+const router = express.Router();
+
+const validateProduct = require("../middleware/validateProduct");
+
+router.post(
+    "/product",
+    validateProduct,
+    (req, res) => {
+
+        res.json({
+            message: "Product Created"
+        });
+
+    }
+);
+
+module.exports = router;
+
+
+1️⃣4️⃣ Error Middleware
+
+Global Error Handling માટે.
+
+middleware/errorHandler.js
+const errorHandler = (err, req, res, next) => {
+
+    res.status(500).json({
+        success: false,
+        message: err.message
+    });
+
+};
+
+module.exports = errorHandler;
+1️⃣5️⃣ Error Middleware Use કરવું
+app.js
+const errorHandler = require("./middleware/errorHandler");
+
+app.use(errorHandler);
+
+⚠️ હંમેશા Last માં લખવું.
+
+1️⃣6️⃣ Real-Time Product Upload API
+routes/productRoutes.js
+const express = require("express");
+
+const router = express.Router();
+
+const upload = require("../middleware/upload");
+
+router.post(
+    "/product",
+    upload.single("image"),
+    (req, res) => {
+
+        const { name, price } = req.body;
+
+        res.json({
+            name,
+            price,
+            image: req.file.filename
+        });
+
+    }
+);
+
+module.exports = router;
+1️⃣7️⃣ Postman Practical
+Body → form-data
+KEY	TYPE
+name	Text
+price	Text
+image	File
+1️⃣8️⃣ File Filter Validation
+
+Only image upload allow કરવું.
+
+upload.js
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname);
+    }
+
+});
+
+const fileFilter = (req, file, cb) => {
+
+    if (
+        file.mimetype === "image/png" ||
+        file.mimetype === "image/jpeg"
+    ) {
+
+        cb(null, true);
+
+    } else {
+
+        cb(new Error("Only PNG & JPG allowed"));
+
+    }
+
+};
+
+const upload = multer({
+    storage,
+    fileFilter
+});
+
+module.exports = upload;
+1️⃣9️⃣ Real-Time Use Cases
+Ecommerce
+Product Images
+Category Images
+Social Media
+Profile Photos
+Post Images
+Blogging Website
+Blog Thumbnail
+Author Image
+Student Portal
+Resume Upload
+ID Card Upload
+2️⃣0️⃣ Final Ecommerce Backend Features
+Features
+
+✅ User Authentication
+✅ Product CRUD
+✅ Category CRUD
+✅ Product Image Upload
+✅ Admin Panel APIs
+✅ JWT Authentication
+✅ Protected Routes
+✅ Validation
+✅ Error Handling
+
+2️⃣1️⃣ Industry Standard Folder Structure
+project/
+│
+├── controllers/
+│
+├── routes/
+│
+├── models/
+│
+├── middleware/
+│
+├── uploads/
+│
+├── config/
+│
+├── utils/
+│
+├── app.js
+
+2️⃣2️⃣ Important Tools
+Tool	    Use
+MongoDB	    Database
+Mongoose	Database Modeling
+Postman	    API Testing
+VS Code	    Coding
+GitHub	    Project Upload
+
+
+2️⃣4️⃣ Interview Questions
+Q1. Multer શું છે?
+
+Node.js middleware for file upload.
+
+Q2. upload.single() શું કરે?
+
+Single file upload કરે.
+
+Q3. req.file શું છે?
+
+Uploaded file data.
+
+Q4. Static folder કેમ use કરીએ?
+
+Browser માં image access માટે.
+
+Q5. Middleware શું છે?
+
+Request અને Response વચ્ચે run થતું function.
+
+2️⃣5️⃣ Homework Project
+Build:
+
+✅ Product CRUD
+✅ Product Image Upload
+✅ Validation
+✅ Error Handling
+✅ MongoDB Connection
+✅ MVC Structure

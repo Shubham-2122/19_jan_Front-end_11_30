@@ -1,0 +1,635 @@
+MVC માં Multer + Cloudinary Image Upload (CRUD) — Gujarati Step by Step
+
+આપણે હવે Node.js + Express + MongoDB MVC Project માં
+Multer + Cloudinary use કરીને:
+
+Image Upload
+Image Delete
+Image Update
+Database માં URL Save
+Live Image API
+
+બધું Step by Step શીખીશું.
+
+1. Cloudinary શું છે?
+
+Cloudinary
+
+Cloudinary એક Cloud Image Storage Service છે.
+
+એમાં:
+
+Image Upload થાય
+URL મળે
+CDN Fast Delivery મળે
+Image Resize કરી શકાય
+Delete પણ કરી શકાય
+
+Example:
+
+https://res.cloudinary.com/demo/image/upload/v123/photo.jpg
+
+આ URL Database માં Save કરીએ છીએ.
+
+2. MVC Structure
+project/
+│
+├── config/
+│   └── cloudinary.js
+│
+├── controllers/
+│   └── productController.js
+│
+├── models/
+│   └── Product.js
+│
+├── routes/
+│   └── productRoutes.js
+│
+├── middleware/
+│   └── upload.js
+│
+├── .env
+├── server.js
+3. Packages Install
+
+Terminal માં:
+
+npm install express mongoose dotenv multer cloudinary multer-storage-cloudinary
+4. Cloudinary Account Create
+Website Open
+
+Cloudinary Official Website
+
+Signup કરો
+
+Google થી Login પણ કરી શકો.
+
+5. Cloudinary Keys ક્યાંથી મળે?
+
+Dashboard માં તમને મળશે:
+
+CLOUD_NAME=
+API_KEY=
+API_SECRET=
+
+Example:
+
+CLOUD_NAME=abc123
+API_KEY=123456
+API_SECRET=abcdef
+6. .env File
+PORT=5000
+
+MONGO_URL=mongodb://127.0.0.1:27017/cloudinary_demo
+
+CLOUD_NAME=your_cloud_name
+API_KEY=your_api_key
+API_SECRET=your_api_secret
+
+6. .env File
+PORT=5000
+
+MONGO_URL=mongodb://127.0.0.1:27017/cloudinary_demo
+
+CLOUD_NAME=your_cloud_name
+API_KEY=your_api_key
+API_SECRET=your_api_secret
+
+
+7. Cloudinary Config
+config/cloudinary.js
+
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+    cloud_name:process.env.CLOUD_NAME,
+    api_key:process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+})
+
+module.exports = cloudinary;
+
+8. Multer + Cloudinary Setup
+middleware/upload.js
+
+const multer = require("multer")
+const {CloudinaryStorage} = require("multer-storage-cloudinary")
+const cloudinary = require("../config/cloudinary")
+
+const storage =new CloudinaryStorage({
+    cloudinary:cloudinary,
+    params:{
+        folder:"products",
+        allowed_formats: ["jpg", "png", "jpeg"]
+    }
+})
+
+const upload = multer({ storage });
+
+module.exports = upload;
+
+9. Product Model
+models/Product.js
+const mongoose = require("mongoose");
+
+const productSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+
+    image: String,
+
+    public_id: String
+});
+
+module.exports = mongoose.model("Product", productSchema);
+
+10. Create Product API (Image Upload)
+controllers/productController.js
+const Product = require("../models/Product");
+const cloudinary = require("../config/cloudinary");
+
+
+// CREATE PRODUCT
+const createProduct = async (req, res) => {
+    try {
+
+        const product = await Product.create({
+            name: req.body.name,
+            price: req.body.price,
+
+            image: req.file.path,
+
+            public_id: req.file.filename
+        });
+
+        res.status(201).json({
+            success: true,
+            message: "Product Created",
+            data: product
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
+module.exports = {
+    createProduct
+};
+
+11. Routes
+
+routes/productRoutes.js
+const express = require("express");
+const router = express.Router();
+
+const upload = require("../middleware/upload");
+
+const {
+    createProduct
+} = require("../controllers/productController");
+
+router.post(
+    "/",
+    upload.single("image"),
+    createProduct
+);
+
+module.exports = router;
+
+
+app.js
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const app = express();
+
+app.use(express.json());
+
+mongoose.connect(process.env.MONGO_URL)
+.then(() => console.log("MongoDB Connected"));
+
+app.use("/products", require("./routes/productRoutes"));
+
+app.listen(process.env.PORT, () => {
+    console.log("Server Running http://localhost:5000");
+});
+
+
+13. Postman માં Upload કેવી રીતે કરવું?
+POST API
+http://localhost:5000/products
+Body → form-data
+KEY	VALUE
+name	iphone
+price	50000
+image	file select કરો
+
+⚠️ image type = File
+
+14. Response
+{
+  "success": true,
+  "message": "Product Created",
+  "data": {
+    "_id": "123",
+
+    "name": "iphone",
+
+    "price": 50000,
+
+    "image": "https://res.cloudinary.com/abc/image/upload/v123/demo.jpg",
+
+    "public_id": "products/abc"
+  }
+}
+15. Database માં શું Save થાય?
+
+MongoDB માં:
+
+{
+   "name":"iphone",
+   "price":50000,
+
+   "image":"https://res.cloudinary.com/....jpg",
+
+   "public_id":"products/abc"
+}
+16. GET All Products API
+const getProducts = async (req, res) => {
+
+    const products = await Product.find();
+
+    res.json(products);
+};
+Route
+router.get("/", getProducts);
+17. Browser માં Live Image
+
+Database URL Copy કરો:
+
+https://res.cloudinary.com/.....
+
+Browser માં Open કરો.
+
+Live Image દેખાશે ✅
+
+
+18. DELETE Product + Image
+Controller
+const deleteProduct = async (req, res) => {
+
+    try {
+
+        const product = await Product.findById(req.params.id);
+
+        // cloudinary image delete
+        await cloudinary.uploader.destroy(
+            product.public_id
+        );
+
+        // mongodb delete
+        await Product.findByIdAndDelete(req.params.id);
+
+        res.json({
+            success: true,
+            message: "Product Deleted"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+Route
+router.delete("/:id", deleteProduct);
+19. UPDATE Product + New Image
+Logic
+
+જૂની image:
+
+Cloudinary માંથી delete
+
+નવી image:
+
+Upload
+
+નવી URL:
+
+Database માં update
+Controller
+const updateProduct = async (req, res) => {
+
+    try {
+
+        const product = await Product.findById(req.params.id);
+
+        // old image delete
+        await cloudinary.uploader.destroy(
+            product.public_id
+        );
+
+        // update new image
+        const updatedProduct =
+            await Product.findByIdAndUpdate(
+                req.params.id,
+                {
+                    name: req.body.name,
+                    price: req.body.price,
+
+                    image: req.file.path,
+
+                    public_id: req.file.filename
+                },
+                { new: true }
+            );
+
+        res.json({
+            success: true,
+            data: updatedProduct
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+Route
+router.put(
+    "/:id",
+    upload.single("image"),
+    updateProduct
+);
+20. Final Routes File
+const express = require("express");
+const router = express.Router();
+
+const upload = require("../middleware/upload");
+
+const {
+    createProduct,
+    getProducts,
+    deleteProduct,
+    updateProduct
+} = require("../controllers/productController");
+
+router.post(
+    "/",
+    upload.single("image"),
+    createProduct
+);
+
+router.get("/", getProducts);
+
+router.delete("/:id", deleteProduct);
+
+router.put(
+    "/:id",
+    upload.single("image"),
+    updateProduct
+);
+
+module.exports = router;
+
+21. Important Concepts
+Topic	Meaning
+Multer	File Handle
+Cloudinary	Cloud Storage
+req.file	Uploaded File Data
+req.file.path	Image URL
+public_id	Cloudinary unique id
+destroy()	Image Delete
+22. Real Flow
+User Upload Image
+        ↓
+Multer Receive File
+        ↓
+Cloudinary Upload
+        ↓
+Image URL Generate
+        ↓
+MongoDB Save URL
+        ↓
+Frontend Show Image
+23. Interview Questions
+Multer શું છે?
+
+Node.js middleware for handling multipart/form-data.
+
+Cloudinary કેમ use કરીએ?
+Local storage problem avoid
+CDN fast
+Scalable
+Live URL
+Easy delete/update
+req.file.path શું આપે?
+
+Uploaded image URL આપે.
+
+public_id શું કામ આવે?
+
+Image delete/update માટે unique id.
+
+24. Important Testing APIs
+Create
+POST /products
+Get All
+GET /products
+Update
+PUT /products/:id
+Delete
+DELETE /products/:id
+
+
+
+4. Postman માં UPDATE કેવી રીતે કરવું?
+Step 1 → Method Select
+PUT
+Step 2 → URL
+http://localhost:5000/products/PRODUCT_ID
+
+Example:
+
+http://localhost:5000/products/6866abc123
+
+⚠️ અહીં product નો MongoDB _id આપવો.
+
+5. Step 3 → Body Select
+
+Postman માં:
+
+Body
+   ↓
+form-data
+6. Fields Add કરો
+KEY	VALUE	TYPE
+name	iphone 16	Text
+price	90000	Text
+image	select image	File
+7. Important
+
+⚠️ image field નું type:
+
+File
+
+રાખવું જરૂરી છે.
+
+8. Final Postman Screen
+9. Update Flow Internally
+Postman
+   ↓
+PUT Request
+   ↓
+Multer Receive File
+   ↓
+Cloudinary Old Image Delete
+   ↓
+New Image Upload
+   ↓
+MongoDB Update
+   ↓
+New URL Save
+10. req.params.id શું આપે?
+req.params.id
+
+URL માંથી ID લે છે.
+
+Example:
+
+/products/123
+
+તો:
+
+req.params.id = 123
+11. req.body શું આપે?
+req.body.name
+req.body.price
+
+Text data આપે.
+
+12. req.file શું આપે?
+
+Uploaded image આપે.
+
+Important Fields
+Field	Meaning
+req.file.path	Cloudinary URL
+req.file.filename	public_id
+13. Example Response
+{
+   "success": true,
+
+   "data": {
+
+      "_id":"6866abc",
+
+      "name":"iphone 16",
+
+      "price":90000,
+
+      "image":"https://res.cloudinary.com/demo/image/upload/abc.jpg",
+
+      "public_id":"products/xyz"
+   }
+}
+14. Browser માં Check
+
+image URL copy કરો:
+
+https://res.cloudinary.com/.....
+
+Browser માં paste કરો.
+
+નવી image દેખાશે ✅
+
+15. Common Errors
+Error 1
+Cannot read properties of undefined (reading 'path')
+
+Reason:
+Image upload નથી થઈ.
+
+Solution:
+
+form-data use કરો
+image type = File રાખો
+Error 2
+Cast to ObjectId failed
+
+Reason:
+Wrong MongoDB ID.
+
+Error 3
+Unexpected field
+
+Reason:
+Field name wrong.
+
+Correct:
+
+image
+16. Testing Sequence
+First
+
+Create Product:
+
+POST /products
+Then
+
+Get All:
+
+GET /products
+
+Copy _id
+
+Then
+
+Update:
+
+PUT /products/:id
+17. Real Interview Question
+Why old image delete before update?
+
+નહી delete કરીએ તો:
+
+Cloudinary storage full થશે
+unused images રહી જશે
+cost વધશે
+
+એટલે પહેલા:
+
+cloudinary.uploader.destroy()
+
+use કરીએ.
+
+18. Simple Real Life Example
+Old WhatsApp DP Remove
+        ↓
+New DP Upload
+        ↓
+New Photo Show
+
+આ જ process અહીં થાય છે 😄
+
+
+
+
+25. Future Advanced Topics
+
+આ પછી શીખો:
+
+Multiple Images Upload
+Image Resize
+Video Upload
+Authentication + Upload
+Admin Panel
+React Frontend Upload
+Drag & Drop Upload

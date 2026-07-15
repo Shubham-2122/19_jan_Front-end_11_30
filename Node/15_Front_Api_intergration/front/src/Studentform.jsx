@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from 'axios';
 
 function Studentform() {
+    
 
     const [from,setfrom] = useState({
         name:"",
